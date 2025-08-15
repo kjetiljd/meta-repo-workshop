@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build outputs
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+
+# Test coverage
+coverage/
+
+# Temporary files
+tmp/
+temp/
+
+# Workshop work directories
+my-meta-repo/
+services/
+frontends/
+
+# Solution testing
+test-repos/
+
+# Instructor files (uncomment these if you want to keep them private)
+# DEVELOP.md
+# INSTRUCTOR.md
+# instructor-notes/
+# private/
+
+# Local testing
+*.local
+.cache/
