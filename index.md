@@ -1,6 +1,5 @@
 ---
-title: "Meta-Repository Workshop"
-description: "Mono-repo eller mange repo? Prøv meta-repo! - JavaZone 2025"
+layout: default
 ---
 
 # 🚀 Meta-Repository Workshop
