@@ -1,0 +1,42 @@
+# Git
+.git
+.gitignore
+
+# Jekyll
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Build artifacts
+Gemfile.lock
+
+# Development
+.serena
+.claude
+
+# Backups
+*.backup
+*_old
+
+# Node modules
+node_modules
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Documentation
+TODO.md
+DEVELOP.md
+INSTRUCTOR.md
+JEKYLL-CONVERSION-SUMMARY.md
+
+# Test files
+test-*.py
+test-*.sh
+preflight-check.py

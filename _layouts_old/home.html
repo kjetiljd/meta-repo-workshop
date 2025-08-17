@@ -1,0 +1,50 @@
+---
+layout: default
+---
+
+<div class="container">
+    <div class="hero">
+        <h1>🚀 {{ page.title }}</h1>
+        <p class="subtitle">{{ page.subtitle }}</p>
+        <p style="margin-bottom: 2rem;">{{ page.event }}</p>
+        
+        <div class="buttons">
+            {% for button in page.buttons %}
+            <a href="{{ button.url }}" class="btn {{ button.class }}">{{ button.text }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="cards">
+        {% for card in page.cards %}
+        <div class="card">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% for section in page.info_sections %}
+    <div class="info"{% if forloop.first == false %} style="margin-top: 1.5rem;"{% endif %}>
+        <h2>{{ section.title }}</h2>
+        {% if section.content %}
+        <p style="margin-bottom: 1rem;">{{ section.content }}</p>
+        {% endif %}
+        {% if section.list %}
+        <ul>
+            {% for item in section.list %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if section.code %}
+        <pre style="background: #f4f4f4; padding: 1rem; border-radius: 5px; overflow-x: auto;">{{ section.code }}</pre>
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+    <div class="footer">
+        <p>Workshop av <a href="{{ site.author.linkedin }}">{{ site.author.name }}</a></p>
+        <p>{{ site.author.title }}</p>
+    </div>
+</div>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/meta-repo-workshop/assets/css/style.css?v=">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Meta-Repository Pattern | Meta-Repository Workshop</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Meta-Repository Pattern" />
+<meta name="author" content="Kjetil Jørgensen-Dahl" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Mono-repo eller mange repo? Prøv meta-repo! - JavaZone 2025" />
+<meta property="og:description" content="Mono-repo eller mange repo? Prøv meta-repo! - JavaZone 2025" />
+<link rel="canonical" href="http://0.0.0.0:4000/meta-repo-workshop/slides/slides/" />
+<meta property="og:url" content="http://0.0.0.0:4000/meta-repo-workshop/slides/slides/" />
+<meta property="og:site_name" content="Meta-Repository Workshop" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Meta-Repository Pattern" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Kjetil Jørgensen-Dahl"},"description":"Mono-repo eller mange repo? Prøv meta-repo! - JavaZone 2025","headline":"Meta-Repository Pattern","url":"http://0.0.0.0:4000/meta-repo-workshop/slides/slides/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/meta-repo-workshop/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          
+            <a id="forkme_banner" href="https://github.com/kjetiljd/meta-repo-workshop">View on GitHub</a>
+          
+
+          <h1 id="project_title">Meta-Repository Workshop</h1>
+          <h2 id="project_tagline">Mono-repo eller mange repo? Prøv meta-repo! - JavaZone 2025</h2>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="meta-repository-pattern">Meta-Repository Pattern</h1>
+<h2 id="orkestrering-av-multi-repo-arkitekturer">Orkestrering av multi-repo arkitekturer</h2>
+
+<p>JavaZone 2025</p>
+
+<p><small>[Ditt navn] - [@din-twitter]</small></p>
+
+<p>Note:</p>
+<ul>
+  <li>Velkommen til workshop om meta-repositories</li>
+  <li>2 timer sammen</li>
+  <li>Praktisk tilnærming</li>
+</ul>
+
+<hr />
+
+<h2 id="-agenda">📋 Agenda</h2>
+
+<ul>
+  <li><strong>30 min</strong> - Introduksjon og teori</li>
+  <li><strong>75 min</strong> - Hands-on oppgaver</li>
+  <li><strong>15 min</strong> - Oppsummering og Q&amp;A</li>
+</ul>
+
+<p>Note:</p>
+<ul>
+  <li>Mye praktisk arbeid</li>
+  <li>Spør underveis!</li>
+</ul>
+
+<hr />
+
+<h2 id="-læringsmål">🎯 Læringsmål</h2>
+
+<ul>
+  <li>Forstå meta-repository pattern</li>
+  <li>Implementere orkestrering av flere repositories</li>
+  <li>Automatisere vanlige oppgaver på tvers av repos</li>
+  <li>Best practices for multi-repo arkitekturer</li>
+</ul>
+
+<hr />
+
+<h2 id="hvem-er-jeg">Hvem er jeg?</h2>
+
+<ul>
+  <li>[Din bakgrunn]</li>
+  <li>[Din erfaring med temaet]</li>
+  <li>[Kontaktinfo]</li>
+</ul>
+
+<p>Note:</p>
+<ul>
+  <li>Presenter deg selv kort</li>
+  <li>Bygg kredibilitet</li>
+</ul>
+
+<hr />
+
+<h1 id="del-1-problemet">Del 1: Problemet</h1>
+
+<p>–</p>
+
+<h2 id="multi-repository-kaos">Multi-repository kaos</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>company-repos/
+├── service-a/
+├── service-b/
+├── service-c/
+├── library-x/
+├── library-y/
+└── frontend-app/
+</code></pre></div></div>
+
+<p>Hvordan holder vi dette synkronisert? 🤔</p>
+
+<p>Note:</p>
+<ul>
+  <li>Typisk microservices-oppsett</li>
+  <li>Hver service sitt repo</li>
+  <li>Utfordringer med koordinering</li>
+</ul>
+
+<p>–</p>
+
+<h2 id="utfordringer">Utfordringer</h2>
+
+<ul>
+  <li>🔄 Versjonssynkronisering</li>
+  <li>📦 Avhengighetshåndtering</li>
+  <li>🚀 Koordinerte deployments</li>
+  <li>🔧 Konsistent konfigurasjon</li>
+  <li>📝 Dokumentasjon spredt utover</li>
+</ul>
+
+<p>Note:</p>
+<ul>
+  <li>Kjente problemer?</li>
+  <li>Hvem har opplevd dette?</li>
+</ul>
+
+<p>–</p>
+
+<h2 id="dagens-løsninger">Dagens løsninger</h2>
+
+<div class="two-column">
+<div class="column">
+
+### Monorepo
+✅ Alt på ett sted  
+✅ Atomiske endringer  
+❌ Skalerer dårlig  
+❌ Kompleks CI/CD  
+
+</div>
+<div class="column">
+
+### Multi-repo
+✅ Uavhengig utvikling  
+✅ Enkel CI/CD per repo  
+❌ Koordinering vanskelig  
+❌ Duplikasjon  
+
+</div>
+</div>
+
+<hr />
+
+<h1 id="del-2-meta-repository-pattern">Del 2: Meta-Repository Pattern</h1>
+
+<p>–</p>
+
+<h2 id="hva-er-et-meta-repository">Hva er et meta-repository?</h2>
+
+<p>Et <strong>orkestreringslag</strong> over flere repositories</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">meta-repo/</span>
+<span class="s">├── repositories.yaml</span>    <span class="c1"># Definerer alle repos</span>
+<span class="s">├── scripts/</span>             <span class="c1"># Automatisering</span>
+<span class="s">├── templates/</span>           <span class="c1"># Felles templates</span>
+<span class="s">└── docs/</span>               <span class="c1"># Overordnet dokumentasjon</span>
+</code></pre></div></div>
+
+<p>Note:</p>
+<ul>
+  <li>Ikke kode, men orkestrering</li>
+  <li>Single source of truth for arkitektur</li>
+</ul>
+
+<p>–</p>
+
+<h2 id="kjernekonsepter">Kjernekonsepter</h2>
+
+<ol>
+  <li><strong>Repository Manifest</strong> - Definerer alle repos</li>
+  <li><strong>Orkestrering</strong> - Koordinerte operasjoner</li>
+  <li><strong>Templates</strong> - Standardisering</li>
+  <li><strong>Automatisering</strong> - Scripts og workflows</li>
+</ol>
+
+<p>–</p>
+
+<h2 id="repository-manifest">Repository Manifest</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">repositories</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">service-a</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">git@github.com:company/service-a.git</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">backend</span>
+    <span class="na">language</span><span class="pi">:</span> <span class="s">java</span>
+    <span class="na">team</span><span class="pi">:</span> <span class="s">platform</span>
+    
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">service-b</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">git@github.com:company/service-b.git</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">backend</span>
+    <span class="na">language</span><span class="pi">:</span> <span class="s">python</span>
+    <span class="na">team</span><span class="pi">:</span> <span class="s">payments</span>
+    
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">frontend-app</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">git@github.com:company/frontend-app.git</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">frontend</span>
+    <span class="na">language</span><span class="pi">:</span> <span class="s">typescript</span>
+    <span class="na">team</span><span class="pi">:</span> <span class="s">web</span>
+</code></pre></div></div>
+
+<p>Note:</p>
+<ul>
+  <li>Sentral oversikt</li>
+  <li>Metadata for filtrering</li>
+  <li>Grunnlag for automatisering</li>
+</ul>
+
+<p>–</p>
+
+<h2 id="orkestrering">Orkestrering</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Klone alle repos</span>
+./meta-repo clone <span class="nt">--all</span>
+
+<span class="c"># Oppdatere alle backend-tjenester</span>
+./meta-repo update <span class="nt">--filter</span> <span class="nb">type</span><span class="o">=</span>backend
+
+<span class="c"># Kjøre kommando på tvers</span>
+./meta-repo <span class="nb">exec</span> <span class="nt">--all</span> <span class="s2">"git pull origin main"</span>
+</code></pre></div></div>
+
+<p>Note:</p>
+<ul>
+  <li>Kraftige kommandoer</li>
+  <li>Filtrering og seleksjon</li>
+  <li>Batch-operasjoner</li>
+</ul>
+
+<hr />
+
+<h1 id="del-3-praktiske-eksempler">Del 3: Praktiske eksempler</h1>
+
+<p>–</p>
+
+<h2 id="eksempel-1-koordinert-oppdatering">Eksempel 1: Koordinert oppdatering</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># Oppdater Node-versjon i alle JavaScript-prosjekter</span>
+
+meta-repo <span class="nb">exec</span> <span class="nt">--filter</span> <span class="nv">language</span><span class="o">=</span>javascript <span class="se">\</span>
+  <span class="s2">"npm install --save-dev @types/node@latest"</span>
+  
+meta-repo <span class="nb">exec</span> <span class="nt">--filter</span> <span class="nv">language</span><span class="o">=</span>javascript <span class="se">\</span>
+  <span class="s2">"git add . &amp;&amp; git commit -m 'chore: update Node types'"</span>
+  
+meta-repo <span class="nb">exec</span> <span class="nt">--filter</span> <span class="nv">language</span><span class="o">=</span>javascript <span class="se">\</span>
+  <span class="s2">"git push origin main"</span>
+</code></pre></div></div>
+
+<p>Note:</p>
+<ul>
+  <li>Ett script, mange repos</li>
+  <li>Konsistent oppdatering</li>
+  <li>Automatiserbar</li>
+</ul>
+
+<p>–</p>
+
+<h2 id="eksempel-2-dependency-scanning">Eksempel 2: Dependency scanning</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># scan_dependencies.py
+</span><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'repositories.yaml'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">repos</span> <span class="o">=</span> <span class="n">yaml</span><span class="p">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="s">'repositories'</span><span class="p">]</span>
+    
+<span class="k">for</span> <span class="n">repo</span> <span class="ow">in</span> <span class="n">repos</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Scanning </span><span class="si">{</span><span class="n">repo</span><span class="p">[</span><span class="s">'name'</span><span class="p">]</span><span class="si">}</span><span class="s">..."</span><span class="p">)</span>
+    <span class="n">subprocess</span><span class="p">.</span><span class="n">run</span><span class="p">([</span>
+        <span class="s">'docker'</span><span class="p">,</span> <span class="s">'run'</span><span class="p">,</span> <span class="s">'--rm'</span><span class="p">,</span>
+        <span class="s">'-v'</span><span class="p">,</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">repo</span><span class="p">[</span><span class="s">'path'</span><span class="p">]</span><span class="si">}</span><span class="s">:/app"</span><span class="p">,</span>
+        <span class="s">'aquasec/trivy'</span><span class="p">,</span> <span class="s">'fs'</span><span class="p">,</span> <span class="s">'/app'</span>
+    <span class="p">])</span>
+</code></pre></div></div>
+
+<p>Note:</p>
+<ul>
+  <li>Sikkerhetsskanning</li>
+  <li>Sentralisert rapportering</li>
+  <li>Compliance</li>
+</ul>
+
+<p>–</p>
+
+<h2 id="eksempel-3-release-koordinering">Eksempel 3: Release koordinering</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># release-train.yaml</span>
+<span class="na">release</span><span class="pi">:</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">2.1.0</span>
+  <span class="na">date</span><span class="pi">:</span> <span class="s">2025-02-01</span>
+  
+  <span class="na">services</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">service-a</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="s">2.1.0</span>
+      <span class="na">changes</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">New</span><span class="nv"> </span><span class="s">payment</span><span class="nv"> </span><span class="s">gateway"</span>
+        
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">service-b</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="s">2.0.5</span>
+      <span class="na">changes</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">Bug</span><span class="nv"> </span><span class="s">fixes"</span>
+        
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">frontend-app</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="s">2.1.0</span>
+      <span class="na">changes</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">Payment</span><span class="nv"> </span><span class="s">UI</span><span class="nv"> </span><span class="s">update"</span>
+</code></pre></div></div>
+
+<p>Note:</p>
+<ul>
+  <li>Release train konsept</li>
+  <li>Koordinerte versjoner</li>
+  <li>Changelog generering</li>
+</ul>
+
+<hr />
+
+<h1 id="del-4-verktøy">Del 4: Verktøy</h1>
+
+<p>–</p>
+
+<h2 id="meta-repo-verktøy">Meta-repo verktøy</h2>
+
+<ul>
+  <li><strong>Google’s repo</strong> - Android-prosjektet</li>
+  <li><strong>git-subrepo</strong> - Git extension</li>
+  <li><strong>meta</strong> - NPM-pakke for meta-repos</li>
+  <li><strong>myrepos</strong> - Multi-repository management</li>
+  <li><strong>Custom scripts</strong> - Skreddersydd løsning</li>
+</ul>
+
+<p>Note:</p>
+<ul>
+  <li>Mange alternativer</li>
+  <li>Velg basert på behov</li>
+  <li>Vi lager custom i workshopen</li>
+</ul>
+
+<p>–</p>
+
+<h2 id="github-actions-for-meta-repos">GitHub Actions for meta-repos</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Sync All Repos</span>
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">schedule</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">cron</span><span class="pi">:</span> <span class="s1">'</span><span class="s">0</span><span class="nv"> </span><span class="s">6</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">1'</span>  <span class="c1"># Hver mandag</span>
+    
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">sync</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v3</span>
+      
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Sync repositories</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">./scripts/sync-all.sh</span>
+          
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Generate report</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">./scripts/generate-status-report.sh &gt; status.md</span>
+          
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Commit report</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">git add status.md</span>
+          <span class="s">git commit -m "Weekly status report"</span>
+          <span class="s">git push</span>
+</code></pre></div></div>
+
+<p>Note:</p>
+<ul>
+  <li>Automatisering er nøkkelen</li>
+  <li>Scheduled workflows</li>
+  <li>Rapportering</li>
+</ul>
+
+<hr />
+
+<h1 id="del-5-best-practices">Del 5: Best Practices</h1>
+
+<p>–</p>
+
+<h2 id="organisering">Organisering</h2>
+
+<p>✅ <strong>DO:</strong></p>
+<ul>
+  <li>Hold meta-repo lett og fokusert</li>
+  <li>Versjonér meta-repo sammen med releases</li>
+  <li>Dokumentér arkitekturbeslutninger</li>
+  <li>Automatiser alt som kan automatiseres</li>
+</ul>
+
+<p>❌ <strong>DON’T:</strong></p>
+<ul>
+  <li>Ikke legg applikasjonskode i meta-repo</li>
+  <li>Ikke lag for tette koblinger</li>
+  <li>Ikke ignorer team-autonomi</li>
+</ul>
+
+<p>Note:</p>
+<ul>
+  <li>Meta-repo er et verktøy</li>
+  <li>Ikke erstatte team-autonomi</li>
+  <li>Balance</li>
+</ul>
+
+<p>–</p>
+
+<h2 id="sikkerhet">Sikkerhet</h2>
+
+<ul>
+  <li>🔐 Bruk SSH-nøkler eller tokens</li>
+  <li>🔒 Secrets i environment variables</li>
+  <li>👥 Tilgangskontroll per team</li>
+  <li>📝 Audit logging av endringer</li>
+</ul>
+
+<p>Note:</p>
+<ul>
+  <li>Sikkerhet fra starten</li>
+  <li>Meta-repo har mye makt</li>
+  <li>Må kontrolleres</li>
+</ul>
+
+<p>–</p>
+
+<h2 id="skalering">Skalering</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meta-repos/
+├── platform-meta/     # Platform team
+├── payments-meta/     # Payments team
+└── company-meta/      # Overordnet
+    └── teams.yaml     # Refererer til team-metas
+</code></pre></div></div>
+
+<p>Note:</p>
+<ul>
+  <li>Meta-repos kan nestes</li>
+  <li>Team-autonomi bevares</li>
+  <li>Hierarkisk struktur</li>
+</ul>
+
+<hr />
+
+<h1 id="workshop-tid-">Workshop tid! 🚀</h1>
+
+<h2 id="la-oss-bygge-vårt-eget-meta-repository-system">La oss bygge vårt eget meta-repository system</h2>
+
+<p><a href="../workshop/01-setup/">Start med oppgave 1 →</a></p>
+
+<p>Note:</p>
+<ul>
+  <li>Nå blir det hands-on</li>
+  <li>Følg oppgavene i workshop-mappen</li>
+  <li>Jeg hjelper underveis</li>
+</ul>
+
+<hr />
+
+<h2 id="ressurser">Ressurser</h2>
+
+<ul>
+  <li>📚 <a href="https://example.com">Meta-repository pattern artikkel</a></li>
+  <li>🔧 <a href="https://gerrit.googlesource.com/git-repo/">Google repo tool</a></li>
+  <li>📖 <a href="https://example.com">Monorepo vs Polyrepo</a></li>
+  <li>💬 Slack: #meta-repo-workshop</li>
+</ul>
+
+<hr />
+
+<h1 id="spørsmål">Spørsmål?</h1>
+
+<p><br /></p>
+
+<h3 id="kontakt">Kontakt</h3>
+<ul>
+  <li>Email: [din-email]</li>
+  <li>GitHub: [@din-github]</li>
+  <li>Twitter: [@din-twitter]</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Takk for deltakelsen!</strong> 🙏</p>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p class="copyright">Meta-Repository Workshop maintained by <a href="https://github.com/kjetiljd">kjetiljd</a></p>
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

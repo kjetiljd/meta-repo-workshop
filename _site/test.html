@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Pages Test - Meta-Repository Workshop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #764ba2;
+            margin-bottom: 2rem;
+        }
+        .test-item {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-item.loading {
+            background: #f0f0f0;
+        }
+        .test-item.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .test-item.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        .status {
+            font-weight: bold;
+        }
+        .success .status {
+            color: #155724;
+        }
+        .error .status {
+            color: #721c24;
+        }
+        .loading .status {
+            color: #666;
+        }
+        button {
+            background: #764ba2;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        button:hover {
+            background: #5a3a7e;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            overflow-x: auto;
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 GitHub Pages Compatibility Test</h1>
+        
+        <div class="info">
+            <strong>Testing:</strong> <span id="base-url"></span>
+        </div>
+        
+        <div id="tests">
+            <div class="test-item loading" data-test="index">
+                <span>Hovedside (index.html)</span>
+                <span class="status">Testing...</span>
+            </div>
+            
+            <div class="test-item loading" data-test="slides">
+                <span>Presentasjon (slides/)</span>
+                <span class="status">Testing...</span>
+            </div>
+            
+            <div class="test-item loading" data-test="slides-md">
+                <span>Slides Markdown (slides/slides.md)</span>
+                <span class="status">Testing...</span>
+            </div>
+            
+            <div class="test-item loading" data-test="workshop">
+                <span>Workshop README</span>
+                <span class="status">Testing...</span>
+            </div>
+            
+            <div class="test-item loading" data-test="resources">
+                <span>Resources</span>
+                <span class="status">Testing...</span>
+            </div>
+            
+            <div class="test-item loading" data-test="reveal-cdn">
+                <span>Reveal.js CDN</span>
+                <span class="status">Testing...</span>
+            </div>
+            
+            <div class="test-item loading" data-test="relative-paths">
+                <span>Relative paths</span>
+                <span class="status">Testing...</span>
+            </div>
+        </div>
+        
+        <button onclick="runTests()">Run Tests Again</button>
+        
+        <h2 style="margin-top: 2rem;">Test Results</h2>
+        <pre id="results"></pre>
+        
+        <div class="info" style="margin-top: 2rem;">
+            <strong>Note:</strong> Alle tester må være grønne for at workshopen skal fungere på GitHub Pages.
+        </div>
+    </div>
+    
+    <script>
+        // Detect base URL
+        const baseUrl = window.location.pathname.replace(/\/test\.html$/, '');
+        document.getElementById('base-url').textContent = window.location.origin + baseUrl;
+        
+        const tests = [
+            {
+                name: 'index',
+                url: './index.html',
+                check: async (response, text) => {
+                    return response.ok && text.includes('Meta-Repository Workshop');
+                }
+            },
+            {
+                name: 'slides',
+                url: './slides/index.html',
+                check: async (response, text) => {
+                    return response.ok && text.includes('reveal');
+                }
+            },
+            {
+                name: 'slides-md',
+                url: './slides/slides.md',
+                check: async (response, text) => {
+                    return response.ok && text.includes('Meta-Repository Pattern');
+                }
+            },
+            {
+                name: 'workshop',
+                url: './workshop/README.md',
+                check: async (response, text) => {
+                    return response.ok;
+                }
+            },
+            {
+                name: 'resources',
+                url: './resources/troubleshooting.md',
+                check: async (response, text) => {
+                    return response.ok;
+                }
+            },
+            {
+                name: 'reveal-cdn',
+                url: 'https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css',
+                check: async (response) => {
+                    return response.ok;
+                }
+            },
+            {
+                name: 'relative-paths',
+                url: null,
+                check: async () => {
+                    // Check that we're not using absolute paths
+                    const links = document.querySelectorAll('a[href^="/"]');
+                    const scripts = document.querySelectorAll('script[src^="/"]');
+                    const styles = document.querySelectorAll('link[href^="/"]');
+                    return links.length === 0 && scripts.length === 0 && styles.length === 0;
+                }
+            }
+        ];
+        
+        async function runTests() {
+            const results = [];
+            
+            for (const test of tests) {
+                const element = document.querySelector(`[data-test="${test.name}"]`);
+                element.className = 'test-item loading';
+                element.querySelector('.status').textContent = 'Testing...';
+                
+                try {
+                    let passed = false;
+                    
+                    if (test.url) {
+                        const response = await fetch(test.url);
+                        const text = await response.text();
+                        passed = await test.check(response, text);
+                    } else {
+                        passed = await test.check();
+                    }
+                    
+                    element.className = `test-item ${passed ? 'success' : 'error'}`;
+                    element.querySelector('.status').textContent = passed ? '✓ Passed' : '✗ Failed';
+                    
+                    results.push({
+                        test: test.name,
+                        url: test.url,
+                        passed: passed
+                    });
+                } catch (error) {
+                    element.className = 'test-item error';
+                    element.querySelector('.status').textContent = '✗ Error';
+                    
+                    results.push({
+                        test: test.name,
+                        url: test.url,
+                        passed: false,
+                        error: error.message
+                    });
+                }
+            }
+            
+            // Display results
+            const allPassed = results.every(r => r.passed);
+            const summary = allPassed 
+                ? '✅ All tests passed! Ready for GitHub Pages!' 
+                : '❌ Some tests failed. Please fix before deploying.';
+            
+            document.getElementById('results').textContent = 
+                summary + '\n\n' + JSON.stringify(results, null, 2);
+        }
+        
+        // Run tests on load
+        window.addEventListener('load', runTests);
+    </script>
+</body>
+</html>

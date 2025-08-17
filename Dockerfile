@@ -1,30 +1,24 @@
-# Dockerfile for testing the workshop locally
-FROM nginx:alpine
+FROM ruby:3.2
 
-# Install git, python, bash and other tools participants will need
-RUN apk add --no-cache \
-    git \
-    python3 \
-    py3-pip \
-    py3-yaml \
-    bash \
-    curl \
-    nodejs \
-    npm \
-    make
+WORKDIR /srv/jekyll
 
-# Copy workshop content
-COPY . /usr/share/nginx/html/
+# Install Node.js and Jekyll dependencies
+RUN apt-get update && \
+    apt-get install -y nodejs npm build-essential && \
+    gem install bundler && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy nginx config for better SPA support
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+# Copy Gemfile and install gems first (for better Docker layer caching)
+COPY Gemfile ./
+RUN bundle install
 
-# Expose port
-EXPOSE 80
+# Copy the rest of the project
+COPY . .
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s \
-    CMD curl -f http://localhost/ || exit 1
+# Build Jekyll site
+RUN bundle exec jekyll build
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 4000
+
+CMD ["bundle", "exec", "jekyll", "serve", "--host", "0.0.0.0", "--livereload", "--force_polling"]
