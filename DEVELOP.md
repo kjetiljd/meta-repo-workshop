@@ -150,19 +150,9 @@ meta-repo-workshop/
 ### Test-kommandoer
 
 ```bash
-# Kjør alle tester
-make test
-
 # Start lokal server
 make serve
 
-# Docker-varianten
-make docker-run
-make docker-logs
-make docker-stop
-
-# Rydd opp
-make clean
 ```
 
 ### Utvikling av nye oppgaver
@@ -254,7 +244,7 @@ zip -r workshop-offline.zip localhost:8000/
 ```bash
 # Opprett ny oppgave
 mkdir workshop/02-basic-commands
-cp workshop/01-setup/README.md workshop/02-basic-commands/
+cp workshop/01-setup/index.md workshop/02-basic-commands/
 # Rediger innholdet
 ```
 

@@ -45,3 +45,4 @@ test-repos/
 *.local
 .cache/
 /_site/
+/Gemfile.lock
