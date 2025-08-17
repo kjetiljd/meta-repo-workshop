@@ -2,7 +2,6 @@ remote_theme: pages-themes/slate@v0.2.0
 plugins:
   - jekyll-remote-theme
   - jekyll-spaceship
-  - jekyll-seo-tag
 title: "Meta-Repository Workshop"
 description: "Mono-repo eller mange repo? Prøv meta-repo! - JavaZone 2025"
 show_downloads: false
@@ -11,36 +10,3 @@ markdown: kramdown
 kramdown:
   input: GFM
 permalink: pretty
-
-# Author information
-author:
-  name: "Kjetil Jørgensen-Dahl"
-  title: "Principal Software Engineer @ Telenor"
-  linkedin: "https://www.linkedin.com/in/kjetiljd/"
-
-# GitHub settings
-github_username: kjetiljd
-url: "https://kjetiljd.github.io"
-baseurl: "/meta-repo-workshop"
-
-# Exclude from processing
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
-  - docker/
-  - test-*.py
-  - test-*.sh
-  - TODO.md
-  - DEVELOP.md
-  - INSTRUCTOR.md
-  - preflight-check.py
-  - generate-indexes.py
-  - Dockerfile
-  - Makefile
-  - index.html.backup
-  - assets/css/main.scss.backup

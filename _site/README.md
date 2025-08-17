@@ -88,6 +88,19 @@ make clean
 make rebuild
 ```
 
+## 🚀 Deploy og GitHub Pages
+
+Prosjektet bruker **GitHub Actions** for å bygge og deploye Jekyll:
+
+- **Automatisk deploy**: Push til `main` trigger bygging og deploy
+- **Full plugin-støtte**: Kan bruke alle Jekyll-plugins (inkludert jekyll-spaceship)
+- **Manuell trigger**: Kan starte deploy fra Actions-tab i GitHub
+
+### GitHub Pages Setup
+Sørg for at GitHub Pages bruker "GitHub Actions" som kilde:
+1. Gå til repo Settings → Pages
+2. Under "Source", velg **"GitHub Actions"**
+
 ## 📝 Agenda (2 timer)
 
 1. **Introduksjon** (5 min) - Velkommen og praktisk info
@@ -129,13 +142,14 @@ Alle oppgaver finner du i `workshop/` mappen:
 
 ## 🔧 Teknisk oppsett
 
-Prosjektet bruker Jekyll med GitHub Pages for hosting:
+Prosjektet bruker Jekyll med GitHub Actions for hosting:
 
 - **Framework**: Jekyll med Slate-tema
-- **Hosting**: GitHub Pages
+- **Hosting**: GitHub Pages via GitHub Actions
 - **Styling**: Remote theme (pages-themes/slate)
 - **Utvikling**: Docker + Makefile for enkel lokal testing
-- **Plugins**: jekyll-spaceship, jekyll-seo-tag
+- **Plugins**: jekyll-spaceship, jekyll-remote-theme, jekyll-seo-tag
+- **Deploy**: Automatisk via GitHub Actions ved push til main
 
 ## 💡 Tips
 
@@ -143,6 +157,7 @@ Prosjektet bruker Jekyll med GitHub Pages for hosting:
 - **Problemer?** Se [troubleshooting](./resources/troubleshooting.md)
 - **Spørsmål?** Post i Slack: #javazone-workshops
 - **Lokal utvikling**: Bruk `make serve` for enkel Docker-basert Jekyll
+- **Deploy issues**: Sjekk Actions-tab for build-status
 
 ## 📚 Ressurser
 
