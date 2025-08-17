@@ -2,6 +2,21 @@
 
 ## 🔴 KRITISK - Må gjøres først
 
+### Presentasjon (slides/)
+- [X] **Slide 1-3: Introduksjon (5 min)**
+    - [X] Velkommen og praktisk info
+    - [X] Agenda-oversikt
+    - [X] Forventningsavklaring
+- [ ] **Slide 4-10: Motivasjon (7 min)**
+    - [X] Problem: Mange repo = kaos
+    - [X] Mono-repo vs Multi-repo trade-offs
+    - [ ] Meta-repo som mellomvei
+    - [ ] Real-world eksempler fra Telenor
+- [ ] **Slide 11-13: Meta-verktøyet (3 min)**
+    - [ ] Hva er meta (npm-pakke)
+    - [ ] .meta fil-format
+    - [ ] Grunnleggende kommandoer
+
 ### Verktøy-oppsett
 - [ ] **Bytt fra custom bash-scripts til `meta` NPM-pakke**
   - [ ] Installer meta globalt: `npm install -g meta`
@@ -12,20 +27,6 @@
   - [ ] Fyll dem med realistisk kode (ulike språk/frameworks)
   - [ ] Lag en "broken" repo for troubleshooting-øvelser
 
-### Presentasjon (slides/)
-- [ ] **Slide 1-3: Introduksjon (5 min)**
-  - [ ] Velkommen og praktisk info
-  - [ ] Agenda-oversikt
-  - [ ] Forventningsavklaring
-- [ ] **Slide 4-10: Motivasjon (7 min)**
-  - [ ] Problem: Mange repo = kaos
-  - [ ] Mono-repo vs Multi-repo trade-offs
-  - [ ] Meta-repo som mellomvei
-  - [ ] Real-world eksempler fra Telenor
-- [ ] **Slide 11-13: Meta-verktøyet (3 min)**
-  - [ ] Hva er meta (npm-pakke)
-  - [ ] .meta fil-format
-  - [ ] Grunnleggende kommandoer
 
 ## 🟡 VIKTIG - Workshop-oppgaver
 

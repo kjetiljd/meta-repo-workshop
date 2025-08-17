@@ -24,12 +24,6 @@ Bytt ut alle placeholder-verdier i filene:
 ### 2. Test hele oppsettet lokalt
 
 ```bash
-# Enkleste test
-python3 test-server.py
-
-# Test med Docker (mer realistisk)
-docker-compose up -d
-
 # Eller med Make
 make serve
 ```
