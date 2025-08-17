@@ -46,3 +46,6 @@ test-repos/
 .cache/
 /_site/
 /Gemfile.lock
+
+Serena MCP AI support files
+!.serena/

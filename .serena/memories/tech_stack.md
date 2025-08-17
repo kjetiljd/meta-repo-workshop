@@ -1,0 +1,13 @@
+# Tech Stack
+- Static Site Generator: Jekyll (Ruby) with GitHub Pages compatible setup.
+- Ruby Gems: jekyll, github-pages (plugin bundle), jekyll-spaceship, jekyll-remote-theme.
+- Theme: Remote (pages-themes/slate) via jekyll-remote-theme.
+- Presentation: Reveal.js (slides/index.html + slides.md).
+- Containerization: Docker (custom Dockerfile)
+- Automation: Makefile targets (build, serve, serve-daemon, logs, stop, clean, install, serve-local, rebuild).
+- Meta-Repo Tooling: npm global package `meta` (used externally in workshop exercises; not embedded code here).
+- Supporting CLI Tools: git, cloc, make, python3 (fallback simple HTTP server), Node.js & npm.
+- Deployment: GitHub Actions -> GitHub Pages (Actions source) enabling full plugin set, automatic on push to main.
+- Languages / Formats: Markdown (.md), HTML, SCSS (assets/css/main.scss), YAML (_config.yml), Makefile syntax, Dockerfile, JSON fragments (meta file examples).
+- OS Assumptions: Cross-platform; documented commands for macOS, Linux, Windows (via choco) for prerequisites.
+- No explicit test framework present (site is largely static).

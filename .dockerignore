@@ -16,8 +16,8 @@ Dockerfile
 Gemfile.lock
 
 # Development
-.serena
-.claude
+.serena/
+.claude/
 
 # Backups
 *.backup
