@@ -38,6 +38,7 @@ Note:
 
 ## Hvem er jeg?
 
+- Kjetil 
 - 25+ år som utvikler 
 - Interessert i _utvikleropplevelsen_
 - Mange år som konsulent, så noen år i NAV
@@ -76,7 +77,7 @@ Note:
 
 - 🏰 Arkitektur: Microservices, frontends/backends <!-- .element: class="fragment" -->
 - 🛠️ Verktøykassen: Dårlig støtte for monorepo <!-- .element: class="fragment" -->
-- 🛠️ Fleksibilitet: Kan bruke ulike teknologier <!-- .element: class="fragment" -->
+- 🔀 Fleksibilitet: Kan bruke ulike teknologier <!-- .element: class="fragment" -->
 - 🏗️ Deploy: Uavhengig deploy <!-- .element: class="fragment" -->
 - 🧠 Kognitiv last: Enklere å resonnere om et lite repo <!-- .element: class="fragment" -->
 - 👨‍💼 Eierskap: Enklere å unngå delt eierskap <!-- .element: class="fragment" -->
@@ -214,25 +215,179 @@ Note:
 
 ---
 
-# Del 2: Meta-Repository Pattern
+# Del 2: Meta-repository 
 
 --
 
 ## Hva er et meta-repository?
 
-Et **orkestreringslag** over flere repositories
+<div class="two-column">
+<div class="column">
+
+- Et git-**repo** som refererer til andre git-repo
+  - Gjerne alle teamet sine repo
+
+- **En-veis kopling** fra meta-repoet til de andre repoene
+  - De mange repoene er fortsatt uavhengige
+
+</div>
+<div class="column">
+
+![en-til-mange.png](images/en-til-mange.png)
+
+</div><!-- .element: class="fragment" data-fragment-index="1" -->
+</div>
+
+Note: 
+- Ett repo:
+  - Evt alle repo som tilhører "et system"
+  - Eller en annen gruppe av repo man ønsker å håndtere sammen
+
+KLIKK!
+
+- En-veis:
+  - Pilene her indikerer at meta-repoet øverst vet om de andre
+  - Enkelt-repoene vet ikke om meta-repoet eller hverandre
+  - De skal oppleves med alle fordelene det er å ha uavhengige repo 
+
+--
+
+## Basisfunksjonalitet i et meta-repo
+
+- Clone og pull'e alle repo'ene
+- Et sted å putte ting som er nyttige på tvers<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Note:
+
+- Basisfunksjonaliteten er å kunne clone og pulle alle repo
+- Det i seg selv er verdifullt, en ny utvikler kan komme raskt i gang
+- KLIKK!
+- Det er også et sted å putte ting som er nyttige på tvers.
+- Det at du har en slags kontroll over hvor repoene dine er
+- ... åpner også muligheter for å gjøre ting på tvers av repoene
+- Brukes (vanligvis) bare på utviklermaskin 
+
+--
+
+## Alternative verktøy
+
+- repo (gerrit.googlesource.com/git-repo/)
+- git submodules
+- git subtree
+- git-subrepo (github.com/ingydotnet/git-subrepo)
+- myrepos (myrepos.branchable.com)
+- **meta** (github.com/mateodelnorte/meta)
+
+Note:
+
+Det finnes ulike verktøy som kan hjelpe, her er noen av dem:
+- repo - som har utsprong fra Google/gerrit
+- git har et par innebygde løsninger
+- git-subrepo - en annen take på dette
+- myrepos - et eldre verktøy
+- meta - som er det vi skal bruke i dag
+
+meta er et enkelt verktøy, som er lett å komme i gang med, 
+og som gir oss det jeg tenker er viktigst.
+
+Disse andre har i varierende grad mer kompleksitet, og noen 
+har sterkere koblinger mellom repoene, 
+i verste fall et forhold til versjoner og da eksploderer hodet mitt.
+
+---
+
+# Del 3: `meta`-verktøyet
+
+--
+
+## `meta` by Matt Williams
+
+- https://github.com/mateodelnorte/meta
+
+- Krever at du har node/npm installert
+  - Mac: `brew install npm`
+
+- Installere meta på maskinen din ( trenger node:brew install npm )
+  - `npm install -g meta`
+
+Note:
+- Laget av en som heter Matt Williams
+- Finnes på github
+- Forutsetter at du har node/npm installert
+
+- Dere trenger ikke gjøre dette ennå
+- Det kommer oppskrift etterhvert
+
+--
+
+## Opprette et meta-prosjekt
+
+```bash
+mkdir my-meta-repo
+cd my-meta-repo
+git init
+meta init
+meta project import [folder 1] [repo url 1]
+meta project import [folder 2] [repo url 2]
+git add .
+git commit -m"Etabler meta-repo"
+```
+
+--
+
+## `meta`-kommandoer
+
+```shell
+meta git clone [met-repo git url]
+```
+Oppdatere om nye repo er lagt til:
+```shell
+meta git update
+```
+
+Kommandoer:
+```shell
+meta exec "<command>"
+meta git
+meta npm
+```
+Note:
+En ting man kan gjøre er å clone et eksisterende meta-repo
+I stedet for å srkive git clone så skrive man meta git clone,
+Og så blir meta-repoet og alle sub-repoene klonet
+
+Når nye repo er lagt til i meta-repoet, så kan
+gjøre en meta git update for å få de nye repo inn lokalt
+
+Og så finnes det en del kommandoer, blant annet 
+meta exec - som kjører en kommando i alle sub-repo-mappene
+meta git - som kjører git-kommandoer i alle sub-repo-mappene
+
+Og det finnes flere slike kommandoer, tilgjengelig via plugins
+Men jeg tenker at disse er de viktigste er  
+
+
+--
+
+## Struktur på et meta-repo
+
+Repoet inneholder:
+- En `.meta`-fil som definerer alle repoene
+- `.gitignore` som ignorerer alle repoene sine foldere
+- 
 
 ```yaml
 meta-repo/
-├── repositories.yaml    # Definerer alle repos
-├── scripts/             # Automatisering
-├── templates/           # Felles templates
-└── docs/               # Overordnet dokumentasjon
+├── .meta               # Definerer alle sub-repo
+├── .gitignore          # Utelukker sub-repo-mapper
+└── +++                 # Annet som er nyttig
 ```
 
 Note:
-- Ikke kode, men orkestrering
-- Single source of truth for arkitektur
+- `.meta`-filen er hjertet i et meta-repo
+- Den definerer alle repoene som skal håndteres
+- `.gitignore` er viktig så du ikke får med alle repoene i meta-repo
+- I tillegg kan du ha andre ting som er nyttige på tvers av repoene
 
 --
 
