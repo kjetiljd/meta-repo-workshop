@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "todo-meta": "git@github.com-kjetiljd:kjetiljd/todo-meta.git",
+    "todo-frontend": "git@github.com-kjetiljd:kjetiljd/todo-frontend.git",
+    "todo-backend": "git@github.com-kjetiljd:kjetiljd/todo-backend.git",
+    "todo-sorter": "git@github.com-kjetiljd:kjetiljd/todo-sorter.git"
+  }
+}
