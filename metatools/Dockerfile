@@ -1,7 +1,7 @@
 # Meta-repo workshop tools image for Windows (and others)
 # Includes: node/npm, meta, meta-git, git, make, cloc
 
-FROM node:20-bookworm-slim
+FROM node:20-bookworm
 
 LABEL org.opencontainers.image.title="meta-repo-workshop tools"
 LABEL org.opencontainers.image.description="Tools image for the workshop: meta, git, make, cloc, Node.js"
@@ -16,10 +16,14 @@ RUN apt-get update \
        ca-certificates \
        openssh-client \
        bash \
+       bsdmainutils \
+       vim \
+       openjdk-17-jdk \
     && rm -rf /var/lib/apt/lists/*
 
+
 # Install meta CLI and useful plugins globally
-RUN npm install -g meta meta-git
+RUN npm install -g --no-save meta
 
 # Default working directory will be the project mount
 WORKDIR /work
