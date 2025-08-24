@@ -2,12 +2,6 @@
 layout: default
 ---
 
-# 🚀 Meta-Repository Workshop
-
-**Mono-repo eller mange repo? Prøv meta-repo!**
-
-JavaZone 2025 - 2 timers hands-on workshop
-
 ## 🎯 Kom i gang
 
 <div style="text-align: center; margin: 2rem 0;">
@@ -38,7 +32,7 @@ Avanserte muligheter med Meta-CLI, GitHub-konfig og templates.
 ## 🎯 Du vil lære
 
 - Hva meta-repo er og når det passer
-- Bruke `meta` NPM-pakken effektivt
+- Bruke `meta` effektivt
 - Kjøre kommandoer på tvers av mange repos
 - Automatisere repetitive oppgaver
 - Analysere kode og git-historikk samlet
@@ -60,18 +54,6 @@ cd meta-repo-workshop
 python3 -m http.server 8000
 ```
 
-## 💻 Lokal utvikling med Jekyll
-
-Hvis du vil kjøre workshop-materialet lokalt med Jekyll:
-
-```bash
-# Med Docker (anbefalt)
-make serve
-
-# Eller uten Docker
-bundle install
-bundle exec jekyll serve
-```
 
 ---
 

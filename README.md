@@ -1,10 +1,9 @@
 # Meta-Repository Workshop - JavaZone 2025
 
 ## 🎯 Mono-repo eller mange repo? Prøv meta-repo!
+Instruktør-informasjon om workshop om **meta-repo** - en teknikk for å håndtere mange repositories uten å gå all-in på monorepo.
 
-Velkommen til workshop om **meta-repo** - en teknikk for å håndtere mange repositories uten å gå all-in på monorepo.
-
-## 📚 Rask-start
+## 📚 Quick-start
 
 ### Online versjon
 Gå til: https://kjetiljd.github.io/meta-repo-workshop/
@@ -26,14 +25,6 @@ cd meta-repo-workshop
 bundle install
 bundle exec jekyll serve
 ```
-
-**Alternativ 3: Enkel Python-server (fallback)**
-```bash
-git clone https://github.com/kjetiljd/meta-repo-workshop.git
-cd meta-repo-workshop
-python3 -m http.server 8000
-```
-Åpne http://localhost:8000 i nettleseren.
 
 ## 🛠 Forutsetninger
 
@@ -69,7 +60,7 @@ docker --version
 Prosjektet har et Jekyll-oppsett med Docker-støtte:
 
 ```bash
-# Bygg og start Jekyll-server
+# Bygg og start Jekyll-server in Docker
 make serve
 
 # Start i bakgrunnen (daemon)

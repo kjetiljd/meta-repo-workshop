@@ -53,3 +53,16 @@ Programvare oversvømmer verden – vi produserer mer enn vi klarer å håndtere
 - Workshop først tunet bedriftinternt
 - Enkle hands-on-øvelser for å vise hvor greit det er å komme i gang
 - Demo-repo med avanserte verktøy som inspirasjon
+
+## Abstract
+Mange kode-repo å holde greie på i teamet ditt? Har du tenkt på mono-repo, men har hørt at det er en del utfordringer?
+Kanskje er tiden inne for å forsøke *meta-repo*?
+Meta-repo er en teknikk (med enkle verktøy) for å kunne gjøre ting med flere repo samtidig, uten at repoene må henge sammen.
+I denne workshop'en vil du få en introduksjon til meta-repo, hvordan man setter det opp, og få se og prøve ut noen muligheter det gir for å håndtere mange repo på en enklere måte, uten å ta steget helt til mono-repo.
+Når workshop'en er ferdig er du klar til å ta teknikken i bruk i ditt eget team.
+
+## Workshop Prerequisites
+Du trenger en laptop som du kan klone repo fra Github og kjøre npm på. IDE/editor er opp til deg.
+
+Det er enklest med macOS og Homebrew. Er du på Windows tilbyr jeg en Docker-container som inneholder de ekstra verktøyene du trenger.
+Ikke testet på Linux, men tipper du finner ut av det hvis du har Linux på utviklingsmaskinen til vanlig.
