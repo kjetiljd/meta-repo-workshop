@@ -4,7 +4,7 @@ WORKDIR /srv/jekyll
 
 # Install Node.js and Jekyll dependencies
 RUN apt-get update && \
-    apt-get install -y nodejs npm build-essential && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends nodejs npm build-essential && \
     gem install bundler && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
