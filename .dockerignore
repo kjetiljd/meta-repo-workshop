@@ -40,3 +40,9 @@ JEKYLL-CONVERSION-SUMMARY.md
 test-*.py
 test-*.sh
 preflight-check.py
+
+# Demo files
+todo-meta/
+todo-frontend/
+todo-backend/
+todo-sorter/
