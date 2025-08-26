@@ -5,8 +5,8 @@ layout: default
 ## 🎯 Kom i gang
 
 <div style="text-align: center; margin: 2rem 0;">
-  <a href="slides/" style="display: inline-block; margin: 0.5rem; padding: 1rem 2rem; background: #159957; color: white; text-decoration: none; border-radius: 0.3rem; font-weight: bold;">📊 Start presentasjon</a>
   <a href="workshop/" style="display: inline-block; margin: 0.5rem; padding: 1rem 2rem; background: #155799; color: white; text-decoration: none; border-radius: 0.3rem; font-weight: bold;">💻 Gå til workshop</a>
+  <a href="slides/" style="display: inline-block; margin: 0.5rem; padding: 1rem 2rem; background: #159957; color: white; text-decoration: none; border-radius: 0.3rem; font-weight: bold;">📊 Start presentasjon</a>
   <a href="https://github.com/kjetiljd/meta-repo-workshop" style="display: inline-block; margin: 0.5rem; padding: 1rem 2rem; background: #333; color: white; text-decoration: none; border-radius: 0.3rem; font-weight: bold;">📦 GitHub</a>
 </div>
 
