@@ -2,12 +2,38 @@
 
 ## 📚 Oversikt
 
-Denne workshopen består av 5 progressive oppgaver som bygger på hverandre. Vi starter enkelt og øker kompleksiteten gradvis.
+Denne workshopen består av oppgaver som bygger på hverandre, så her er det best å starte fra toppen.
 
 ## 🎯 Oppgaver
 
-1. **[Oppsett og grunnleggende struktur](01-setup/)** (15 min)
-   - Sette opp meta-repository struktur
+1. **[Installere `meta`](01-prereqs/)**
+   - Installere Node.js og npm
+   - Installere `meta` globalt via npm
+   - Evt bruke Docker for isolert miljø
+
+2. **[Oppsett og grunnleggende struktur](02-setup/)**
+   - Klone demo-meta-repo
+   - Legge til sub-repo
+   - Teste noen kommandoer
+
+3. **[Kommandolinje-øvelser](03-commands/)**
+   - Kjøre `meta exec "kommando"`
+   - Ekskludere repo
+   - Kommando-kjeder
+
+
+| 00:35 | 15 min | Bruk av make eller script til nyttige kommandoer (git pull, status etc) | Hands-on |
+| 00:50 | 10 min | Kodeendring på tvers av repo | Hands-on |
+| 01:00 | 10 min | Kodeanalyse med cloc som eksempel | Hands-on |
+| 01:10 | 15 min | git-historikk analyse (endringer, release notes, statistikk) | Hands-on |
+| 01:25 | 5 min | Inspirasjon: Meta-CLI | Demo |
+| 01:30 | 5 min | Inspirasjon: github-konfig | Demo |
+| 01:35 | 10 min | Templates på tvers | Hands-on |
+| 01:45 | 10 min | Hvordan sette opp et nytt meta-repo og legge til repo | Hands-on |
+| 01:55 | 5 min | Avslutning | Presentasjon |
+KLADD:
+
+4. Sette opp meta-repository struktur
    - Definere repository manifest
    - Klone første repositories
 
@@ -58,7 +84,7 @@ python3 --version
 
 ## 🏁 La oss starte!
 
-**[→ Start med Oppgave 1: Oppsett](01-setup/)**
+**[→ Start med Oppgave 1: Oppsett](02-setup/)**
 
 ---
 
@@ -89,10 +115,3 @@ workshop/
 
 Se [resources/troubleshooting.md](../resources/troubleshooting.md) hvis du støter på problemer.
 
-## 📝 Notater
-
-Bruk dette området for egne notater under workshopen:
-
-```
-<!-- Dine notater her -->
-```

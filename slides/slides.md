@@ -364,7 +364,7 @@ meta exec - som kjører en kommando i alle sub-repo-mappene
 meta git - som kjører git-kommandoer i alle sub-repo-mappene
 
 Og det finnes flere slike kommandoer, tilgjengelig via plugins
-Men jeg tenker at disse er de viktigste er  
+Men jeg tenker at disse er de viktigste.
 
 
 --
@@ -391,279 +391,28 @@ Note:
 
 --
 
-## Kjernekonsepter
+## Eksempler på meta-prosjekter
 
-1. **Repository Manifest** - Definerer alle repos
-2. **Orkestrering** - Koordinerte operasjoner
-3. **Templates** - Standardisering
-4. **Automatisering** - Scripts og workflows
-
---
-
-## Repository Manifest
-
-```yaml
-repositories:
-  - name: service-a
-    url: git@github.com:company/service-a.git
-    type: backend
-    language: java
-    team: platform
-    
-  - name: service-b
-    url: git@github.com:company/service-b.git
-    type: backend
-    language: python
-    team: payments
-    
-  - name: frontend-app
-    url: git@github.com:company/frontend-app.git
-    type: frontend
-    language: typescript
-    team: web
-```
-
-Note:
-- Sentral oversikt
-- Metadata for filtrering
-- Grunnlag for automatisering
+| Prosjekt (github.com)                                                                                               |                                                                                      |                                                                                       |
+|---------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| [navikt/pia-hub](https://github.com/navikt/pia-hub)                                                                 | [.meta](https://github.com/navikt/pia-hub/blob/main/.meta)                                | [.gitignore](https://github.com/navikt/pia-hub/blob/main/.gitignore)                            |
+| [navikt/eessi-pensjon](https://github.com/navikt/eessi-pensjon)                                                     | [.meta](https://github.com/navikt/eessi-pensjon/blob/master/.meta)                        | [.gitignore](https://github.com/navikt/eessi-pensjon/blob/master/.gitignore)                    |
+| [navikt/tbd-spleiselaget-meta](https://github.com/navikt/tbd-spleiselaget-meta)                                     | [.meta](https://github.com/navikt/tbd-spleiselaget-meta/blob/main/.meta)                  | [.gitignore](https://github.com/navikt/tbd-spleiselaget-meta/blob/main/.gitignore)              |
+| [opensearch-project/opensearch-plugins](https://github.com/opensearch-project/opensearch-plugins/tree/main/plugins) | [.meta](https://github.com/opensearch-project/opensearch-plugins/blob/main/plugins/.meta) | [.gitignore](https://github.com/opensearch-project/opensearch-plugins/blob/main/plugins/.gitignore) |
 
 --
 
-## Orkestrering
+## 🛠️ Hands-on med `meta` 👷
 
-```bash
-# Klone alle repos
-./meta-repo clone --all
+Nå skal vi gjøre de to første oppgavene i workshopen:
 
-# Oppdatere alle backend-tjenester
-./meta-repo update --filter type=backend
+- [01-Installasjon](../workshop/01-prereqs/) - Installere `meta`
+- [02-Setup](../workshop/02-setup/) - Sett opp det første meta-repoet.
 
-# Kjøre kommando på tvers
-./meta-repo exec --all "git pull origin main"
-```
-
-Note:
-- Kraftige kommandoer
-- Filtrering og seleksjon
-- Batch-operasjoner
-
----
-
-# Del 3: Praktiske eksempler
-
---
-
-## Eksempel 1: Koordinert oppdatering
-
-```bash
-#!/bin/bash
-# Oppdater Node-versjon i alle JavaScript-prosjekter
-
-meta-repo exec --filter language=javascript \
-  "npm install --save-dev @types/node@latest"
-  
-meta-repo exec --filter language=javascript \
-  "git add . && git commit -m 'chore: update Node types'"
-  
-meta-repo exec --filter language=javascript \
-  "git push origin main"
-```
-
-Note:
-- Ett script, mange repos
-- Konsistent oppdatering
-- Automatiserbar
-
---
-
-## Eksempel 2: Dependency scanning
-
-```python
-# scan_dependencies.py
-import yaml
-import subprocess
-
-with open('repositories.yaml') as f:
-    repos = yaml.safe_load(f)['repositories']
-    
-for repo in repos:
-    print(f"Scanning {repo['name']}...")
-    subprocess.run([
-        'docker', 'run', '--rm',
-        '-v', f"{repo['path']}:/app",
-        'aquasec/trivy', 'fs', '/app'
-    ])
-```
-
-Note:
-- Sikkerhetsskanning
-- Sentralisert rapportering
-- Compliance
-
---
-
-## Eksempel 3: Release koordinering
-
-```yaml
-# release-train.yaml
-release:
-  version: 2.1.0
-  date: 2025-02-01
-  
-  services:
-    - name: service-a
-      version: 2.1.0
-      changes:
-        - "New payment gateway"
-        
-    - name: service-b
-      version: 2.0.5
-      changes:
-        - "Bug fixes"
-        
-    - name: frontend-app
-      version: 2.1.0
-      changes:
-        - "Payment UI update"
-```
-
-Note:
-- Release train konsept
-- Koordinerte versjoner
-- Changelog generering
-
----
-
-# Del 4: Verktøy
-
---
-
-## Meta-repo verktøy
-
-- **Google's repo** - Android-prosjektet
-- **git-subrepo** - Git extension
-- **meta** - NPM-pakke for meta-repos
-- **myrepos** - Multi-repository management
-- **Custom scripts** - Skreddersydd løsning
-
-Note:
-- Mange alternativer
-- Velg basert på behov
-- Vi lager custom i workshopen
-
---
-
-## GitHub Actions for meta-repos
-
-```yaml
-name: Sync All Repos
-on:
-  schedule:
-    - cron: '0 6 * * 1'  # Hver mandag
-    
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Sync repositories
-        run: |
-          ./scripts/sync-all.sh
-          
-      - name: Generate report
-        run: |
-          ./scripts/generate-status-report.sh > status.md
-          
-      - name: Commit report
-        run: |
-          git add status.md
-          git commit -m "Weekly status report"
-          git push
-```
-
-Note:
-- Automatisering er nøkkelen
-- Scheduled workflows
-- Rapportering
-
----
-
-# Del 5: Best Practices
-
---
-
-## Organisering
-
-✅ **DO:**
-- Hold meta-repo lett og fokusert
-- Versjonér meta-repo sammen med releases
-- Dokumentér arkitekturbeslutninger
-- Automatiser alt som kan automatiseres
-
-❌ **DON'T:**
-- Ikke legg applikasjonskode i meta-repo
-- Ikke lag for tette koblinger
-- Ikke ignorer team-autonomi
-
-Note:
-- Meta-repo er et verktøy
-- Ikke erstatte team-autonomi
-- Balance
-
---
-
-## Sikkerhet
-
-- 🔐 Bruk SSH-nøkler eller tokens
-- 🔒 Secrets i environment variables
-- 👥 Tilgangskontroll per team
-- 📝 Audit logging av endringer
-
-Note:
-- Sikkerhet fra starten
-- Meta-repo har mye makt
-- Må kontrolleres
-
---
-
-## Skalering
-
-```
-meta-repos/
-├── platform-meta/     # Platform team
-├── payments-meta/     # Payments team
-└── company-meta/      # Overordnet
-    └── teams.yaml     # Refererer til team-metas
-```
-
-Note:
-- Meta-repos kan nestes
-- Team-autonomi bevares
-- Hierarkisk struktur
-
----
-
-# Workshop tid! 🚀
-
-## La oss bygge vårt eget meta-repository system
-
-[Start med oppgave 1 →](../workshop/01-setup/)
-
-Note:
-- Nå blir det hands-on
-- Følg oppgavene i workshop-mappen
-- Jeg hjelper underveis
-
----
-
-## Ressurser
-
-- 📚 [Meta-repository pattern artikkel](https://example.com)
-- 🔧 [Google repo tool](https://gerrit.googlesource.com/git-repo/)
-- 📖 [Monorepo vs Polyrepo](https://example.com)
-- 💬 Slack: #meta-repo-workshop
+1. Gå hit: https://kjetiljd.github.io/meta-repo-workshop/ 
+2. Klikk på den blå knappen med "Gå til workshop".
+3. Klikk deg videre inn på oppgave 1: Installasjon
+4. Når du er ferdig med oppgave 1, gå videre til oppgave 2: Oppsett og grunnleggende struktur
 
 ---
 
