@@ -64,7 +64,11 @@ docker run --rm -it -v "$PWD:/work" -w /work ghcr.io/kjetiljd/meta-repo-workshop
 
 Nå er du i en bash-terminal med alt du trenger installert.
 `/work` er mappet til mappen du står når du kjører kommandoen.
-Kjør `exit` for å gå ut av terminalen i docker-containeren.
+
+Kjør `exit` nå for å gå ut av terminalen i docker-containeren:
+```shell
+exit
+```
 
 
 **[← Tilbake til oversikt](../)** | **[→ Neste oppgave: Oppsett og grunnleggende struktur](../02-setup/)**
