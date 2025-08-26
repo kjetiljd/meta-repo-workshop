@@ -106,14 +106,53 @@ meta exec "echo start ; echo sleep \$((RANDOM % 5 + 1)) ; echo end" --parallel
 
 ### Steg 5: Kodestatistikk med cloc
 
-Bruk `cloc` (Count Lines of Code) for å få oversikt over kodebasen:
+Bruk `cloc` for å få oversikt over kodebasen:
 
 ```shell
 meta exec "cloc . --vcs=git"
 ```
 
+Dette gir deg statistikk over antall linjer kode per språk i hvert repo. 
+Vi bruker `--vcs=git` for å telle kun filer som er sporet av Git.
 
-Dette gir deg statistikk over antall linjer kode per språk i hvert repo.
+<details markdown="1">
+  <summary>Installasjon av cloc – om nødvendig</summary>
+
+[cloc](https://github.com/AlDanial/cloc) – "Count Lines of Code" – er et populært verktøy for å telle linjer med kode i et prosjekt.  
+
+Om du ikke har `cloc` installert, så er det [rekordmange muligheter](https://github.com/AlDanial/cloc?tab=readme-ov-file#install-via-package-manager), her er noen:
+
+<details markdown="1">
+  <summary>macOS</summary>
+
+```shell
+brew install cloc
+```
+</details>
+
+<details markdown="1">
+  <summary>Windows</summary>
+
+Vurdér å bruke Docker-containeren som allerede har cloc installert.
+
+Utestede alternativer: 
+```powershell
+# Windows Package Manager
+winget install AlDanial.Cloc
+
+# Chocolatey
+choco install cloc
+```
+</details>
+<details markdown="1">
+  <summary>Linux</summary>
+
+```shell
+# Debian/Ubuntu - eller bruk din pakkebehandler
+sudo apt install cloc
+```
+</details>
+</details>
 
 ### Steg 6: Pipeline og betinget kjøring
 
@@ -151,21 +190,27 @@ Legg merke til enkelt-fnutter (`'`) rundt hele kommandoen, og doble fnutter (`"`
 
 ## 🎯 Ekstra-oppgaver
 
-Løs disse oppgavene med `meta exec`.
+Løs disse oppgavene med `meta exec` - og kommandolinje-verktøy:
 
-1. **Finn alle TODO-kommentarer**: Bruk `grep` for å finne TODO-kommentarer på tvers av alle repoer
+1. **Commit historie**: Tell antall commits i hvert repo siste 7 dager
 2. **Git branch status**: Se hvilken branch hvert repo er på
-3. **Size analysis**: Finn de største filene i hvert repo
-4. **Sjekk dependencies**: List opp alle package.json dependencies
+3. **Finn alle TODO-kommentarer**: Bruk `grep` for å finne TODO-kommentarer på tvers av alle repoer
+4. **Size analysis**: Finn de største filene i hvert repo
+5. **Siste endringer**: Finn hvilke filer som ble endret sist i hvert repo
+
+<details markdown="1">
+  <summary>Løsninger</summary>
+
+Det finnes ofte flere måter å løse slike oppgaver på. Her er noen forslag til hver oppgave:
 
 <details markdown="1">
   <summary>1</summary>
 <hr/>
 
 ```shell
-meta exec 'git grep -n "TODO" || echo "No TODOs found"'"
+meta exec 'git log --oneline --since="7 days ago" | wc -l'
 ```
-Legg merke til bruken av `git grep` for å unngå filer som er i `.gitgnore`. `|| echo ...` hindrer at vi får en feilmelding når vi ikke finner noe.
+
 <hr/>
 </details>
 
@@ -174,7 +219,7 @@ Legg merke til bruken av `git grep` for å unngå filer som er i `.gitgnore`. `|
 <hr/>
 
 ```shell
-meta exec 'git branch --show-current' --exclude "$(basename $PWD)"
+meta exec 'git branch --show-current'
 ```
 
 <hr/>
@@ -185,21 +230,44 @@ meta exec 'git branch --show-current' --exclude "$(basename $PWD)"
 <hr/>
 
 ```shell
-meta exec 'du -ah . | sort -hr | head -5' --exclude "$(basename $PWD)"
+meta exec 'git grep -n "TODO" || echo "No TODOs found"'"
 ```
-
+Legg merke til bruken av `git grep` for å unngå filer som er i `.gitgnore`. `|| echo ...` hindrer at vi får en feilmelding når vi ikke finner noe.
 <hr/>
 </details>
+
 
 <details markdown="1">
   <summary>4</summary>
 <hr/>
 
 ```shell
-meta exec 'if [ -f package.json ]; then echo "=== $(pwd) ===" && cat package.json | jq -r ".dependencies // {} | keys[]" 2>/dev/null || grep -o "\"[^\"]*\":" package.json | grep -v "devDependencies\|scripts\|name\|version"; fi' --exclude "$(basename $PWD)"
+meta exec 'find . -type f -exec du -ah {} + | sort -hr | head -5'
+```
+
+Alternativt, for å kun vise filer som er sporet av Git:
+```shell
+meta exec 'git ls-files -z | xargs -0 du -ah | sort -hr | head -5'
 ```
 
 <hr/>
+</details>
+
+<details markdown="1">
+  <summary>5</summary>
+<hr/>
+
+```shell
+meta exec 'git log --oneline --name-only -1'
+```
+
+Alternativt, for kun å vise filnavn uten commit-info:
+```shell
+meta exec 'git show --name-only --pretty="" HEAD'
+```
+
+<hr/>
+</details>
 </details>
 
 ## 💡 Tips
