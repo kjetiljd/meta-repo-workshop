@@ -402,6 +402,144 @@ Note:
 
 --
 
+## Verktøy: make og Makefile
+
+- **make** kom i 1976 (Bell Labs, Stuart Feldman)
+- Opprinnelig for å bygge C-programmer
+- I dag: automatisere alle typer oppgaver
+
+**Alternativer:**
+- Shell-script
+- Python-script  
+- npm scripts (package.json)
+
+Note:
+make er et klassisk Unix-verktøy fra 1976, laget av Stuart Feldman ved Bell Labs.
+Opprinnelig designet for å bygge C-programmer ved å definere avhengigheter mellom filer.
+I dag brukes det til å automatisere alle typer oppgaver - ikke bare bygging.
+
+--
+
+## Makefile syntax
+
+```makefile
+target: dependencies
+	command (må ha tab, ikke spaces!)
+
+build: clean
+	gcc -o program main.c
+	
+clean:
+	rm -f *.o program
+```
+
+**Viktig:**
+- Tab før kommando (ikke spaces)
+- Første target blir default
+
+Note:
+Syntax: target etterfulgt av kolon, så avhengigheter. 
+Under må det være tab (ikke spaces!) før kommandoen.
+Første target i filen blir default - kjøres hvis du bare skriver "make".
+
+--
+
+## Hvordan kjøre make
+
+```bash
+# Kjør første (default) target
+make
+
+# Kjør spesifikt target
+make clean
+make build
+
+# Kjør flere targets
+make clean build
+```
+
+**Eksempel:**
+```bash
+$ make help
+help                 : Show available commands
+build               : Build Docker image  
+serve               : Start Jekyll server
+```
+
+Note:
+make uten argumenter kjører første target i Makefile.
+Du kan spesifisere hvilket target du vil kjøre.
+Du kan også kjøre flere targets i sekvens.
+
+--
+
+## .PHONY - hva er det?
+
+```makefile
+.PHONY: clean help build
+
+clean:
+	rm -f *.o
+
+help:
+	@echo "Available commands..."
+```
+
+**Hvorfor .PHONY?**
+- Forteller make at dette ikke er en fil
+- Bare en kommando som skal kjøres
+- Unngår konflikter med filer som har samme navn
+
+Note:
+.PHONY forteller make at dette ikke er en fil som skal lages, bare en kommando.
+Hvis du har en fil som heter "clean" og et target som heter "clean", 
+vil make tro at filen er oppdatert og ikke kjøre kommandoen.
+Med .PHONY unngår du dette problemet.
+
+--
+
+## Smart .PHONY trick
+
+```makefile
+.PHONY: $(shell sed -n -e '/^$$/ { n ; /^[^ .\#][^ ]*:/ { s/:.*$$// ; p ; } ; }' $(MAKEFILE_LIST))
+```
+
+**Hva gjør denne?**
+- Finner automatisk alle targets i Makefile
+- Legger alle i .PHONY
+- Du slipper å huske å oppdatere .PHONY manuelt
+
+Note:
+Dette er et smart triks som automatisk finner alle targets i Makefile og legger dem i .PHONY.
+Da slipper du å huske å oppdatere .PHONY-lista hver gang du legger til et nytt target.
+Regex-en ser etter linjer som ser ut som targets (ikke har punktum eller # først).
+
+--
+
+## Help-kommando eksempel
+
+```makefile
+help: # Extracts make targets with double-hash comments
+	@grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | \
+	sed -e 's/:.*##\s*/ : /' | \
+	while IFS=' : ' read -r cmd desc; do \
+		printf "\033[36m%-20s\033[0m %s\n" "$$cmd" "$$desc"; \
+	done
+
+build: ## Build Docker image
+	docker build -t myapp .
+
+serve: ## Start development server  
+	docker run -p 4000:4000 myapp
+```
+
+Note:
+Dette er et smart pattern for å lage hjelp-kommando.
+Targets med dobbel-hash (##) blir automatisk plukket opp og vist som hjelp.
+grep finner alle linjer med ##, sed formaterer dem, og printf printer dem pent med farger.
+
+--
+
 ## 🛠️ Hands-on med `meta` 👷
 
 Nå skal vi gjøre de to første oppgavene i workshopen:
@@ -415,6 +553,220 @@ Nå skal vi gjøre de to første oppgavene i workshopen:
 4. Når du er ferdig med oppgave 1, gå videre til oppgave 2: Oppsett og grunnleggende struktur
 
 ---
+
+# Del 4: Docker & Docker Compose
+
+--
+
+## Hvorfor Docker i meta-repo?
+
+- **Konsistent miljø** på tvers av alle repos
+- **Isolering** av dependencies og versjoner  
+- **Reproduserbarhet** - samme miljø lokalt og i CI/CD
+- **Enkelt onboarding** - ny utvikler kan starte raskt
+- **Multi-service koordinering** med Docker Compose
+
+Note:
+Docker løser mange av utfordringene med å ha mange repositories:
+- Konsistent miljø: Alle får samme versjon av Node, Python, Java etc
+- Isolering: Dependencies fra et repo påvirker ikke andre
+- Reproduserbarhet: Det som funker på din maskin funker også på andres
+- Enkelt onboarding: En kommando starter hele stacken
+- Multi-service: Docker Compose kan starte mange services samtidig
+
+--
+
+## Docker Compose for meta-repo
+
+```yaml
+version: '3.8'
+services:
+  frontend:
+    build: ./todo-frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./todo-backend
+    ports:
+      - "8082:8080"
+    depends_on:
+      - sorter
+
+  sorter:
+    build: ./todo-sorter
+    ports:
+      - "8083:3001"
+```
+
+Note:
+Docker Compose lar deg definere alle services i meta-repoet ditt i én fil.
+Hver service kan bygges fra sitt eget repo.
+Dependencies mellom services håndteres automatisk.
+Port-mapping gjør at du kan nå alle services fra localhost.
+
+--
+
+## Integration med make
+
+```makefile
+up: ## Start alle services
+	docker-compose up -d
+	$(MAKE) urls
+
+down: ## Stopp alle services  
+	docker-compose down
+
+logs: ## Vis service logs
+	docker-compose logs -f
+
+urls: ## Vis service URLs
+	@echo "Frontend: http://localhost:8081"
+	@echo "Backend:  http://localhost:8082" 
+	@echo "Sorter:   http://localhost:8083"
+```
+
+Note:
+Ved å kombinere Docker Compose med make får du kraftige shortcuts.
+-d flag starter services i bakgrunnen
+urls-kommandoen viser hvor du finner alle services
+logs lar deg følge med på all output fra alle services
+
+--
+
+## Fordeler med Docker-oppsett
+
+✅ **En kommando** starter hele systemet
+
+✅ **Automatisk dependency-håndtering**
+
+✅ **Konsistente versjoner** på tvers av team
+
+✅ **Enkelt å legge til nye services**
+
+✅ **CI/CD blir enklere**
+
+Note:
+Hovedfordelene:
+- En kommando: `make up` og alt er i gang
+- Automatisk: Docker Compose starter services i riktig rekkefølge
+- Konsistente versjoner: Dockerfile definerer eksakte versjoner
+- Skalerbart: Nye services legges bare til i docker-compose.yml
+- CI/CD: Samme oppsett kan brukes i produksjon
+
+--
+
+## 🛠️ Hands-on med Docker 👷
+
+Nå skal vi jobbe med Docker og meta-repo:
+
+- [04-Automatisering](../workshop/04-automation/) - Make og Makefile
+- [05-Docker setup](../workshop/05-dockered/) - Docker og Docker Compose
+
+Fortsett med oppgave 4 og 5 i workshopen.
+
+---
+
+# Del 5: IDE-integrasjon
+
+--
+
+## Utfordringen med IDE og mange repos
+
+- **Separate prosjekter** i IDE for hvert repo
+- **Ingen oversikt** over hele systemet
+- **Komplisert navigering** mellom repositories
+- **Inkonsistent kodestil** på tvers av repos
+- **Vanskelig refactoring** på tvers
+
+Note:
+Når du har mange repositories blir det vanskelig å jobbe effektivt i IDEer som IntelliJ:
+- Hver repo må åpnes som eget prosjekt
+- Du mister helhetsbildet av systemet
+- Navigering mellom repos blir tregt og omstendelig
+- Refactoring som berører flere repos blir nærmest umulig
+- Kodestil og konfigurasjoner kan drifta fra hverandre
+
+--
+
+## Gradle Composite Build
+
+```gradle
+// settings.gradle
+rootProject.name = "todo-meta"
+
+includeBuild "todo-frontend"
+includeBuild "todo-backend"  
+includeBuild "todo-sorter"
+```
+
+**Fordeler:**
+- Alle sub-prosjekter i **én IntelliJ-workspace**
+- **Cross-repository refactoring**
+- **Unified search** på tvers av repos
+- **Konsistent konfiguration**
+
+Note:
+Gradle Composite Build lar deg kombinere flere separate Gradle-prosjekter til ett stort prosjekt.
+Dette gir deg alle fordelene av et monorepo i IDE-et uten å faktisk slå sammen koden.
+IntelliJ forstår strukturen og behandler det som ett stort prosjekt.
+
+--
+
+## Oppsett av Gradle Composite Build
+
+1. **Opprett Gradle wrapper i meta-repo**:
+```bash
+gradle wrapper
+```
+
+2. **Lag settings.gradle**:
+```gradle
+rootProject.name = "my-meta-repo"
+
+includeBuild "service-a"
+includeBuild "frontend-app"
+includeBuild "shared-lib"
+```
+
+3. **Åpne meta-repo i IntelliJ**
+4. **Profit!** 🎉
+
+Note:
+Oppsettet er enkelt:
+1. Gradle wrapper gir deg konsistente Gradle-versjoner
+2. settings.gradle definerer hvilke repos som skal inkluderes
+3. IntelliJ gjenkjenner automatisk strukturen
+4. Alle sub-prosjekter blir synlige i samme workspace
+
+--
+
+## IntelliJ fordeler
+
+✅ **Global search** på tvers av alle repos
+
+✅ **Refactoring** som berører flere prosjekter
+
+✅ **Unified run configurations**
+
+✅ **Cross-project navigation**
+
+✅ **Consistent code style** settings
+
+✅ **Shared build configurations**
+
+Note:
+Med Gradle Composite Build får du:
+- Global search: Finn all bruk av en klasse på tvers av repos
+- Refactoring: Endre et interface og få oppdatert alle implementasjoner
+- Run configurations: Start hele systemet fra IDE-et
+- Navigation: Hopp mellom klasser selv om de er i forskjellige repos
+- Code style: Konsistente formateringsregler overalt
+- Build configs: Felles konfigurasjon for alle prosjekter
+
+--
 
 # Spørsmål?
 

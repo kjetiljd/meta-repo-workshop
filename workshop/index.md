@@ -21,8 +21,21 @@ Denne workshopen består av oppgaver som bygger på hverandre, så her er det be
    - Ekskludere repo
    - Kommando-kjeder
 
+4. **[Automatisering med make/scripts](04-automation/)**
+    - Litt om make og Makefile
+    - Lage Makefile
+    - Makefile-triks: .PHONY og help target
 
-| 00:35 | 15 min | Bruk av make eller script til nyttige kommandoer (git pull, status etc) | Hands-on |
+5. **[Docker og Docker Compose](05-dockered/)**
+    - Sette opp Docker Compose for meta-repo
+    - Service-koordinering og dependencies
+    - Integrering med Makefile
+
+6. **[IDE-integrasjon](06-ide-integration/)**
+    - Gradle Composite Build setup
+    - Unified workspace i IntelliJ
+    - Cross-repository navigation og refactoring
+
 | 00:50 | 10 min | Kodeendring på tvers av repo | Hands-on |
 | 01:00 | 10 min | Kodeanalyse med cloc som eksempel | Hands-on |
 | 01:10 | 15 min | git-historikk analyse (endringer, release notes, statistikk) | Hands-on |

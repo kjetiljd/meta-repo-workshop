@@ -125,11 +125,10 @@ cat .gitignore
 ```
 Mappen med sub-repoet (`todo-frontend`) er ignorert i det ytre git-prosjektet. git i meta-prosjektet bryr seg ikke om sub-repoene. Dette gir oss en løs kopling mellom meta-repo'et og de andre repoene.
 
-Fortsett med de to neste repoene:
+Fortsett med det neste repoet:
 
 ```shell
 meta project import todo-backend https://github.com/kjetiljd/todo-backend.git
-meta project import todo-sorter https://github.com/kjetiljd/todo-sorter.git
 ```
 
 Sjekk `.meta` og `.gitignore` om de ser ut som forventet:
@@ -138,6 +137,28 @@ Sjekk `.meta` og `.gitignore` om de ser ut som forventet:
 cat .meta
 cat .gitignore
 ```
+
+La oss legge til det siste repoet, men gjøre en liten vri
+
+Denne gangen gjør vi en vanlig git clone først:
+
+```shell
+git clone https://github.com/kjetiljd/todo-sorter.git
+```
+Siden vi allerede har klonet repoet, kan vi bruke `meta project import` uten url denne gangen:
+```shell
+meta project import todo-sorter
+```
+
+Sjekk `.meta` og `.gitignore` om de ser ut som forventet:
+
+```shell
+cat .meta
+cat .gitignore
+```
+
+(Dersom vi ikke har noe repo i det hele tatt, men skal lage et, kunne vi brukt `meta project create [folder] [url]`.)
+
 
 ## Steg 4: Sjekk om vi er oppdatert
 
