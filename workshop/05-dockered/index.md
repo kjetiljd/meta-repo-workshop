@@ -1,5 +1,9 @@
 # Oppgave 5: Docker og Docker Compose
 
+> **Denne delen krever Docker og Docker Compose installert på maskinen din.** Hvis du ikke har Docker installert, kan du enten:
+> - Installere Docker, f eks fra [docker.com/get-started](https://www.docker.com/get-started/) 
+> - Hoppe over denne oppgaven og gå direkte til [Oppgave 6: IDE-integrasjon](../06-ide-integration/) men les gjerne igjennom stegene for å forstå hvordan dette fungerer.
+
 ## 📋 Mål
 
 I denne oppgaven skal du:
@@ -10,33 +14,24 @@ I denne oppgaven skal du:
 
 ## 📚 Bakgrunn
 
-Docker og Docker Compose løser mange utfordringer med meta-repositories ved å gi konsistente miljøer, isolerte dependencies, og enkel service-koordinering.
+Å plassere verktøy for å kjøre opp en løsning sammensatt av flere tjenester passer veldig fint i et meta-repo.
+
+docker-compose er et verktøy for å definere og kjøre multi-container Docker applikasjoner. 
+Med en YAML-fil kan du konfigurere hver docker-container og kople dem sammen, og starte dem med en enkel kommando.
+
+I vårt prosjekt finnes det allerede Dockerfiles i hver service-mappe, så vi trenger bare å lage en `docker-compose.yml` fil i meta-repo mappen.
+
 
 ## 🛠 Steg-for-steg
 
-### Steg 1: Undersøk eksisterende Docker-oppsett
+### Steg 1: Opprett docker-compose.yml
 
-Gå inn i todo-meta mappen og se på den eksisterende docker-compose.yml:
+Opprett en `docker-compose.yml` fil i meta-repo mappen:
 
 ```bash
-cd todo-meta
-cat docker-compose.yml
-```
-
-Du vil se noe slikt:
-
-```yaml
-version: '3.8'
+# Klipp og lim hele denne kommandoen:
+cat > docker-compose.yml << 'EOF'
 services:
-  meta-todo-frontend:
-    build: ./todo-frontend
-    ports:
-      - "8081:80"
-    environment:
-      - VITE_API_TARGET=http://meta-todo-backend:8080
-    depends_on:
-      - meta-todo-backend
-
   meta-todo-backend:
     build: ./todo-backend
     ports:
@@ -52,52 +47,68 @@ services:
     build: ./todo-sorter
     ports:
       - "8083:3001"
+      
+  meta-todo-frontend:
+    build: ./todo-frontend
+    ports:
+      - "8081:80"
+    environment:
+      - API_URL=http://meta-todo-backend:8080
+    depends_on:
+      - meta-todo-backend
+
+EOF
 ```
 
 ### Steg 2: Bygg og start services
 
-Bygg og start alle services med Docker Compose:
+**⚠️ Viktig**: Hvis du kjører workshop-en i Docker, må du først avslutte Docker-containeren og gå tilbake til host-maskinen for å kunne kjøre Docker Compose.
 
 ```bash
-# Bygg og start services i bakgrunnen
-make up-build
+# Hvis du er i Docker-container, skriv:
+exit
+```
 
-# Alternativt, hvis du allerede har bygget:
-make up
+Bygg og start alle services:
+```
+docker-compose up --build -d
 ```
 
 Dette vil:
 - Bygge Docker images for hver service
 - Starte alle services i riktig rekkefølge
-- Vise service-URLs
+- Kjøre i bakgrunnen (-d flag)
 
 ### Steg 3: Utforsk kjørende services
 
-Sjekk at alle services kjører:
+Sjekk at alle services kjører med vanlige docker-compose kommandoer:
 
 ```bash
 # Se status på alle services
-make status
-
-# Vis service-URLs
-make urls
+docker-compose ps
 
 # Følg logs fra alle services
-make logs
+docker-compose logs -f
+
+# Se service-URLs
+echo "Service URLs:"
+echo "Frontend: http://localhost:8081"
+echo "Backend:  http://localhost:8082/api/todos/count" 
+echo "Sorter:   http://localhost:8083/health"
 ```
 
 ### Steg 4: Test servicene
 
 Åpne en nettleser og gå til:
 - Frontend: http://localhost:8081
-- Backend API: http://localhost:8082/api/todos
+- Backend API: http://localhost:8082/api/todos/count
 - Sorter service: http://localhost:8083/health
 
 Prøv å legge til todos i frontenden og se at alt fungerer sammen.
 
 ### Steg 5: Legg til Docker-kommandoer i din Makefile
 
-Hvis du ikke allerede har det, legg til disse Docker Compose kommandoene i din `Makefile`:
+Nå som Docker Compose fungerer, kan vi legge til praktiske make-kommandoer. Legg til disse kommandoene i din `Makefile`:
 
 ```makefile
 up: ## Start alle services i bakgrunnen
@@ -106,7 +117,7 @@ up: ## Start alle services i bakgrunnen
 
 up-build: ## Bygg og start alle services
 	docker-compose up --build -d
-	$(MAKE) urls
+    (MAKE) urls
 
 down: ## Stopp alle services
 	docker-compose down
@@ -121,21 +132,22 @@ logs: ## Vis service logs
 status: ## Vis service status
 	docker-compose ps
 
-urls: ## Vis service URLs og porter
+urls: ## Vis service URLs
 	@echo "Service URLs:"
-	@docker-compose ps --format "table {{.Name}}\t{{.Ports}}" | grep -E "(meta-todo-|Name)" | \
-	sed 's/meta-todo-frontend.*0.0.0.0:\([0-9]*\)->80.*/  Frontend: http:\/\/localhost:\1/' | \
-	sed 's/meta-todo-backend.*0.0.0.0:\([0-9]*\)->8080.*/  Backend:  http:\/\/localhost:\1/' | \
-	sed 's/meta-todo-sorter.*0.0.0.0:\([0-9]*\)->3001.*/  Sorter:   http:\/\/localhost:\1/' | \
-	grep -v "Name\|Ports"
+	@echo "Frontend: http://localhost:8081"
+	@echo "Backend:  http://localhost:8082/api/todos/count" 
+	@echo "Sorter:   http://localhost:8083/health"
 ```
 
-### Steg 6: Test alle kommandoene
+### Steg 6: Test make-kommandoene
 
-Prøv de forskjellige Docker-kommandoene:
+Nå kan du teste make-kommandoene:
 
 ```bash
-# Start services
+# Stopp servicene først
+make down
+
+# Start på nytt med make
 make up
 
 # Se status
@@ -149,124 +161,82 @@ make logs
 
 # Restart services
 make restart
-
-# Stopp services
-make down
 ```
 
-### Steg 7: Utforsk individuell service-utvikling
+### Steg 7: Commit Docker-integrasjonen
 
-Mens Docker Compose kjører, kan du fortsatt jobbe med individuelle services:
+Commit Docker Compose-filen og Makefile-endringene:
 
 ```bash
-# Gå inn i en service og gjør endringer
-cd todo-frontend
-# Gjør endringer i koden...
-
-# Bygg kun denne servicen på nytt
-docker-compose up --build meta-todo-frontend -d
-
-# Eller restart kun denne servicen
-docker-compose restart meta-todo-frontend
+git add docker-compose.yml Makefile
+git commit -m"Legg til Docker Compose oppsett og make-kommandoer"
 ```
 
-### Steg 8: Commit Docker-integrasjonen
+## 🎯 Ekstra-oppgave: Health checks for bedre oppstart
 
-Commit endringene du har gjort i Makefile:
+Backend'en bruker noen sekunder mer enn frontenden på å bli klar, og det kan føre til at frontend ikke virker i starten.
 
-```bash
-git add Makefile
-git commit -m"Legg til Docker Compose kommandoer i Makefile"
-```
+Hvis du vil sikre at servicene faktisk er klare før avhengige tjenester starter, kan du legge til health checks i `docker-compose.yml`.
 
-## 🎯 Ekstra-oppgaver
-
-1. **Health checks**: Legg til health check endpoints i alle services
-2. **Environment variables**: Konfigurer forskjellige miljøer (dev, test, prod)
-3. **Volume mapping**: Legg til persistent storage for databaser
-4. **Networking**: Opprett custom Docker networks for service-isolering
-5. **Multi-stage builds**: Optimaliser Dockerfile for mindre images
 
 <details markdown="1">
-  <summary>Løsningsforslag</summary>
+  <summary>Klikk for å se health check oppsett</summary>
 
-<details markdown="1">
-  <summary>1. Health checks</summary>
+Erstatt din `docker-compose.yml` med denne versjonen:
 
 ```yaml
-# I docker-compose.yml
 services:
-  meta-todo-backend:
-    # ... existing config
+  meta-todo-sorter:
+    build: ./todo-sorter
+    container_name: meta-todo-sorter
+    ports:
+      - "8083:3001"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-```
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-Makefile kommando:
-```makefile
-health: ## Sjekk health status på alle services
-	@docker-compose ps --format "table {{.Name}}\t{{.Status}}" | grep -E "(Name|Status|healthy|unhealthy)"
-```
-</details>
-
-<details markdown="1">
-  <summary>2. Environment variables</summary>
-
-```yaml
-# docker-compose.override.yml for lokalt
-version: '3.8'
-services:
   meta-todo-backend:
+    build: ./todo-backend
+    container_name: meta-todo-backend
+    ports:
+      - "8082:8080"
     environment:
-      - NODE_ENV=development
-      - DEBUG=true
-```
-
-```bash
-# Bruk forskjellige compose filer
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
-```
-</details>
-
-<details markdown="1">
-  <summary>3. Volume mapping</summary>
-
-```yaml
-services:
-  meta-todo-backend:
+      - SORTER_SERVICE_URL=http://meta-todo-sorter:3001
+    depends_on:
+      meta-todo-sorter:
+        condition: service_healthy
     volumes:
       - ./todo-backend/data:/app/data
-      - backend-logs:/app/logs
-
-volumes:
-  backend-logs:
-```
-</details>
-
-<details markdown="1">
-  <summary>4. Custom networking</summary>
-
-```yaml
-version: '3.8'
-services:
-  # ... services
-networks:
-  frontend:
-  backend:
-  
-services:
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
   meta-todo-frontend:
-    networks:
-      - frontend
-      - backend
-  meta-todo-backend:
-    networks:
-      - backend
+    build: ./todo-frontend
+    container_name: meta-todo-frontend
+    ports:
+      - "8081:80"
+    environment:
+      - API_URL=http://meta-todo-backend:8080
+    depends_on:
+      meta-todo-backend:
+        condition: service_healthy
 ```
-</details>
+
+Dette sikrer at:
+- `meta-todo-sorter` må være "healthy" før `meta-todo-backend` starter
+- `meta-todo-backend` må være "healthy" før `meta-todo-frontend` starter
+- Health checks kjører hver 10. sekund
+
+Test det nye oppsettet:
+```bash
+make rebuild
+# Observer at servicene starter i riktig rekkefølge og venter på hverandre
+```
 
 </details>
 
@@ -277,7 +247,7 @@ services:
 **Port conflicts**: 
 ```bash
 # Se hvilke porter som er i bruk
-lsof -i :8081
+lsof -i :8081 # På Linux/Mac
 # Endre porter i docker-compose.yml hvis nødvendig
 ```
 
@@ -286,7 +256,7 @@ lsof -i :8081
 # Bygg på nytt uten cache
 docker-compose build --no-cache
 
-# Se detaljerte logs under bygging
+# Se detaljert logg under bygging
 docker-compose up --build
 ```
 
