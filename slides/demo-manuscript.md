@@ -6,8 +6,8 @@
 ### Bakgrunnshistorie (2-3 minutter)
 - "Jeg vil vise dere et ekte meta-repo som jeg har jobbet med"
 - "Dette er fra NAV, eessi-pensjon-teamet"
-- "Jeg jobbet i dette teamet i [X måneder/år] for et par år siden"
-- "EESSI står for European Electronic Exchange of Social Security Information"
+- "Jeg jobbet i dette teamet i en periode for et par år siden"
+- "EESSI står for Electronic Exchange of Social Security Information"
 - "Systemet håndterer pensjonsdatautveksling mellom europeiske land"
 - "Komplekst domene med mange deler - perfekt kandidat for meta-repo"
 
@@ -122,7 +122,103 @@ cd eessi-pensjon
 
 ---
 
-## Demo 4: Analyse på tvers av Repositories
+## Demo 4: Git Historikk Analyse - Hvilke filer endres oftest?
+
+**Når:** Etter oppgave 4 (Automatisering) og git-history workshop-oppgave  
+**Varighet:** 3-4 minutter
+**Mål:** Vise hvordan meta kan hjelpe med å analysere git-historikk på tvers av repositories
+
+### Kontekst
+"Dere har nettopp laget en 'hotspots' kommando selv. La meg vise dere hvordan samme teknikk ser ut med et ekte system som eessi-pensjon."
+
+### Live Demo
+
+```bash
+# Gå til eessi-pensjon meta-repo
+cd ../../navikt/eessi-pensjon
+
+# Se hvilke filer som har flest commits
+echo "La oss se hvilke filer som endres oftest på tvers av alle repositories:"
+meta exec "git log --name-only --pretty=format: | grep -Ev '^$' | sort | uniq -c | sort -rn | head -5"
+
+# Forventet resultat basert på ekte data:
+# /Users/t988833/Projects/navikt/eessi-pensjon:
+#   33 Makefile
+#   27 settings.gradle
+#   24 templates/buildSrc/ep-module.gradle
+#   21 docs/adr/0003-Utviklingshastighet.md
+#   18 templates/src/main/kotlin/no/nav/eessi/pensjon/shared/person/Fodselsnummer.kt
+#
+# eessi-pensjon-fagmodul:
+# 1281 build.gradle
+#  378 VERSION
+#  200 src/main/kotlin/no/nav/eessi/pensjon/fagmodul/api/SedController.kt
+#  185 src/main/kotlin/no/nav/eessi/pensjon/fagmodul/api/BucController.kt
+#  125 src/main/kotlin/no/nav/eessi/pensjon/fagmodul/eux/EuxInnhentingService.kt
+
+# Diskuter resultatet
+echo "Wow! Se på tallene - build.gradle har 1281 commits, VERSION-filer 378 commits!"
+echo "Og SedController.kt med 200 commits - der skjer det mye utvikling..."
+
+# Se på produksjonskode uten gradle-config (siste 3 måneder)
+echo "La oss filtrere bort gradle-filer og se på ekte kode-hotspots:"
+meta exec "git log --name-only --pretty=format: --since='3 months ago' | grep -v 'gradle' | grep -Ev '^$' | sort | uniq -c | sort -rn | head -5"
+
+# Se på filhistorikken for en spesifikk fil
+echo "Hvis vi lurer på hvorfor en fil endres ofte, kan vi se commit-historikken:"
+echo "La oss se på PensjonsinformasjonUtlandController.kt i fagmodul:"
+cd eessi-pensjon-fagmodul && git log --oneline -- src/main/kotlin/no/nav/eessi/pensjon/fagmodul/pesys/PensjonsinformasjonUtlandController.kt && cd -
+```
+
+### Talking Points
+- **"Dette kalles 'code hotspots' - områder som endres ofte kan være tegn på problemer"**
+- **"1281 commits i build.gradle! Det forteller oss hvor mye maintenance-arbeid som skjer"**
+- **"SedController med 200 commits - der foregår mye utvikling og endringer"**
+- **"VERSION-filer med 378 commits viser hyppige releases"**  
+- **"Se hvordan vi enkelt kan 'drill down' fra hotspots til spesifikke commit-historikk"**
+- **"Dette hjelper oss forstå HVORFOR en fil endres ofte - feature utvikling vs bugfixes"**
+- **"Med meta får vi umiddelbart oversikt på tvers av 15+ repositories"**
+
+### Hva vises
+- Liste over mest endrede filer på tvers av alle microservices
+- Tidsfiltert analyse (siste 3 måneder)
+- Filtrert analyse som fokuserer på produksjonskode
+- Diskusjon av hva tallene forteller oss om kodebasen
+
+---
+
+## Demo 5: IDE-integrasjon (hvis tid tillater)
+**Slide:** IDE-integrasjon seksjon (Del 6)
+
+### Vis Utviklingsopplevelsen
+- "La meg vise dere hvordan dette ser ut i IntelliJ i eessi-pensjon"
+- Demonstrer enhetlig søk
+    - P_BUC_06
+        - Finnes mange steder i ulike repo ...
+        - Men det er lett å finne med IDE-søk
+        - Og vi kan finne absolutt alle stedene i koden
+    - Søk etter "FROM " i Dockerfile
+        - En med node, resten på samme basebilde
+- "Jeg har allerede eessi-pensjon åpent her som et Gradle Composite Build"
+- Vis navigering på tvers av repositories (Project og Package view)
+    - Vis config-pakka og KafkaStoppingErrorHandler
+    - Jeg husker at disse var ganske forskjellige i ulike repo
+        - Trolig burde dette være en delt library
+        - Men samtidig er det én fil ...
+    - Tilbake i project view
+        - Vis at det finens bibliotetek-repo også
+    - Vis Github Action-view - vis at det ser *veldig* likt ut
+        - Ingen diff! ... mystisk
+- Vis hvordan alle sub-prosjektene vises i samme workspace
+
+### Nøkkelbeskjeder
+- "IDE-et ditt behandler det som ett stort prosjekt"
+- "Refaktorering på tvers av repositories blir mulig"
+- "Utviklingsopplevelse lik monorepo"
+
+---
+
+## Demo 6: Analyse på tvers av Repositories
 **Slide:** Under avanserte emner eller oppsummering
 
 ### Analytiske Kommandoer
@@ -181,34 +277,93 @@ cd eessi-pensjon
 
 ---
 
-## Demo 5: IDE-integrasjon (hvis tid tillater)
-**Slide:** IDE-integrasjon seksjon (Del 6)
+## Demo 7: Template-system - Java version oppgradering
 
-### Vis Utviklingsopplevelsen
-- "La meg vise dere hvordan dette ser ut i IntelliJ i eessi-pensjon"
-- Demonstrer enhetlig søk
-  - P_BUC_06 
-    - Finnes mange steder i ulike repo ...
-    - Men det er lett å finne med IDE-søk
-    - Og vi kan finne absolutt alle stedene i koden
-  - Søk etter "FROM " i Dockerfile
-    - En med node, resten på samme basebilde
-- "Jeg har allerede eessi-pensjon åpent her som et Gradle Composite Build"
-- Vis navigering på tvers av repositories (Project og Package view)
-  - Vis config-pakka og KafkaStoppingErrorHandler
-  - Jeg husker at disse var ganske forskjellige i ulike repo
-    - Trolig burde dette være en delt library
-    - Men samtidig er det én fil ...
-  - Tilbake i project view
-    - Vis at det finens bibliotetek-repo også
-  - Vis Github Action-view - vis at det ser *veldig* likt ut
-    - Ingen diff! ... mystisk
-- Vis hvordan alle sub-prosjektene vises i samme workspace
+**Når:** Etter templates slides
+**Varighet:** 4-5 minutter  
+**Mål:** Vise praktisk template-system i action med ekte eessi-pensjon eksempel
 
-### Nøkkelbeskjeder
-- "IDE-et ditt behandler det som ett stort prosjekt"
-- "Refaktorering på tvers av repositories blir mulig"
-- "Utviklingsopplevelse lik monorepo"
+### Kontekst
+"Nå skal jeg vise dere template-systemet i praksis med et ekte eksempel fra eessi-pensjon. Vi skal oppgradere Java-versjon fra 21.0.4 til 21.0.8 på tvers av alle repositories med én kommando."
+
+### Live Demo
+
+```bash
+# Gå til eessi-pensjon meta-repo
+cd ../../navikt/eessi-pensjon
+
+# 1. Vis template-strukturen
+echo "Først - la oss se på template-strukturen:"
+ls templates/
+ls templates/.github/workflows/
+
+# 2. Finn hvor Java-versjon er definert
+echo "La oss finne hvor Java 21.0.4 er definert i templates:"
+grep -r "21\.0\.4" templates/
+
+# Forventet resultat:
+# templates/.github/workflows/release_mainline.yml:35:          java-version: 21.0.4
+# templates/.github/workflows/bygg_mainline_og_deploy_q1.yml:30:          java-version: 21.0.4
+# templates/.github/workflows/bygg_branch_og_publiser.yml:32:          java-version: 21.0.4
+# templates/.github/workflows/bygg_mainline_og_deploy.yml:30:          java-version: 21.0.4
+# templates/.github/workflows/bygg_branch.yml:31:          java-version: 21.0.4
+
+echo "Se der! Java 21.0.4 er brukt i 5 forskjellige workflow-templates"
+
+# 3. Vis en av template-filene
+echo "La oss se på én av template-filene:"
+head -40 templates/.github/workflows/bygg_branch.yml
+
+# 4. Vis template-data strukturen  
+echo "Og her er template-data for hvert repo:"
+ls template-data/ | head -5
+echo "... og mange flere"
+
+# 5. Utfør oppgraderingen
+echo "Nå oppgraderer vi fra 21.0.4 til 21.0.8 i alle templates:"
+sed -i 's/21\.0\.4/21.0.8/g' templates/.github/workflows/*.yml
+
+echo "Sjekk at endringen ble gjort:"
+grep -r "21\.0\.8" templates/ | head -3
+
+# 6. Se hvilke filer som ble endret
+echo "Git viser oss hvilke template-filer som ble endret:"
+git diff --name-only templates/
+
+# 7. Generer filer til alle repos
+echo "Nå distribuerer vi templates til alle repositories:"
+make generate-files
+
+# Dette vil kjøre gjennom alle repos og oppdatere workflow-filene
+# Forventet output: "Generating .github/workflows/bygg_branch.yml ... CHANGED!" osv
+
+# 8. Se resultatet i ett av sub-repoene
+echo "La oss sjekke at det fungerte - se i en av sub-repoene:"
+cd eessi-pensjon-fagmodul
+git status
+git diff .github/workflows/bygg_branch.yml
+cd ..
+
+# 9. Vis hvor mange repos som ble påvirket  
+echo "La oss se hvor mange repos som ble påvirket:"
+meta exec "git status --porcelain | grep '.github/workflows'" | wc -l
+
+echo "Så mange repos fikk oppdatert Java-versjon med én kommando!"
+```
+
+### Talking Points
+- **"Dette er template-systemet i praksis på et ekte prosjekt"**
+- **"Én sed-kommando endrer Java-versjon i alle 5 workflow-templates"**  
+- **"make generate-files distribuerer endringene til 15+ repositories"**
+- **"Se hvordan git diff viser nøyaktig hvilke filer som ble endret i hvert repo"**
+- **"Fra 21.0.4 til 21.0.8 på tvers av hele økosystemet på under ett minutt"**
+- **"Samme teknikk kan brukes for Docker base images, dependency-versjoner, osv"**
+- **"Dette sparer timer med manuelt arbeid og eliminerer glemte repositories"**
+
+### Oppfølging
+- "Hvis vi ville committed dette, kunne vi kjørt `meta git add -A && meta git commit -m 'Upgrade Java to 21.0.8'`"
+- "I praksis ville dette gå gjennom code review prosess"
+- "Template-systemet sikrer at alle repos holder seg konsistente"
 
 ---
 
@@ -240,10 +395,3 @@ cd eessi-pensjon
 - Demo 5: 2 minutter (valgfritt)
 - **Totalt: 15 minutter med demos**
 
----
-
-## Backup-eksempler
-Hvis eessi-pensjon blir utilgjengelig, bruk disse alternativene:
-- https://github.com/navikt/pia-hub
-- https://github.com/opensearch-project/opensearch-plugins (plugins-mappen)
-- Ditt eget demo meta-repo med enkle eksempler

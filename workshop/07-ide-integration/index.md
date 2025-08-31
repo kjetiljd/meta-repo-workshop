@@ -1,4 +1,4 @@
-# Oppgave 6: IDE-integrasjon med Gradle Composite Build
+# Oppgave 7: IDE-integrasjon med Gradle Composite Build
 
 ## 📋 Mål
 
@@ -297,4 +297,4 @@ gradle wrapper --gradle-version 8.5
 
 ✅ **Shared configurations** og settings
 
-**[← Tilbake til oversikt](../)** | **[→ Neste: Avancerte scenarios](../07-advanced/)**
+**[← Tilbake til oversikt](../)** | **[→ Neste oppgave: Cross-repo koordinering](../08-cross-repo/)**

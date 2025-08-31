@@ -18,11 +18,9 @@ Note:
 
 ## 📋 Agenda
 
-- **15 min** - Introduksjon
-- **45 min** - Hands-on oppgaver 
-- **25 min** - Demo og inspirasjon
-- **25 min** - Hands-on oppgaver
-- **10 min** - Oppsummering og avslutning
+- **Introduksjon** - Problemet og løsningen
+- **Workshop** - Presentasjon, demo og hands-on
+- **Avslutning** - Avanserte eksempler og Q&A
 
 Note:
 - Mye praktisk arbeid
@@ -64,13 +62,13 @@ Note:
 
 --
 
-## Mange repo er vanlig
+## Mange git-repo er vanlig
 
 ![mangerepo-undersokelse.png](images/mangerepo-undersokelse.png)
 
 Note:
 - Jeg spurte en del team hos NAV om hvor mange repo de hadde ansvar for
-- Som dere ser, så er det noen som har få, men de fleste har gankse mange
+- Som dere ser, så er det noen som har få, men de fleste har ganske mange
 - Jeg tenker jo at når man bikker over 10 repo, så begynner det å bli litt mye å holde styr på
 - Og her ser dere at mange har mer enn 20, og opp til over 100 repo
 
@@ -117,8 +115,6 @@ library-x <!-- .element: class="fragment" data-fragment-index="3" -->
 frontend-app-2 <!-- .element: class="fragment" data-fragment-index="4" -->
 
 service-d <!-- .element: class="fragment" data-fragment-index="4" -->
-
-library-y <!-- .element: class="fragment" data-fragment-index="4" -->
 
 osv...<!-- .element: class="fragment" data-fragment-index="5" -->
 
@@ -405,23 +401,77 @@ Note:
 | Prosjekt (github.com)                                                                                               |                                                                                      |                                                                                       |
 |---------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
 | [navikt/pia-hub](https://github.com/navikt/pia-hub)                                                                 | [.meta](https://github.com/navikt/pia-hub/blob/main/.meta)                                | [.gitignore](https://github.com/navikt/pia-hub/blob/main/.gitignore)                            |
-| [navikt/eessi-pensjon](https://github.com/navikt/eessi-pensjon)                                                     | [.meta](https://github.com/navikt/eessi-pensjon/blob/master/.meta)                        | [.gitignore](https://github.com/navikt/eessi-pensjon/blob/master/.gitignore)                    |
 | [navikt/tbd-spleiselaget-meta](https://github.com/navikt/tbd-spleiselaget-meta)                                     | [.meta](https://github.com/navikt/tbd-spleiselaget-meta/blob/main/.meta)                  | [.gitignore](https://github.com/navikt/tbd-spleiselaget-meta/blob/main/.gitignore)              |
 | [opensearch-project/opensearch-plugins](https://github.com/opensearch-project/opensearch-plugins/tree/main/plugins) | [.meta](https://github.com/opensearch-project/opensearch-plugins/blob/main/plugins/.meta) | [.gitignore](https://github.com/opensearch-project/opensearch-plugins/blob/main/plugins/.gitignore) |
+| [navikt/eessi-pensjon](https://github.com/navikt/eessi-pensjon)                                                     | [.meta](https://github.com/navikt/eessi-pensjon/blob/master/.meta)                        | [.gitignore](https://github.com/navikt/eessi-pensjon/blob/master/.gitignore)                    |
 
 --
 
-## 🛠️ Hands-on med `meta` 👷
+## 🎯 Demo 1: Real-world meta-repo
 
-Nå skal vi gjøre de to første oppgavene i workshopen:
+**eessi-pensjon** - et ekte meta-repo fra NAV
 
-- [01-Installasjon](../workshop/01-prereqs/) - Installere `meta`
-- [02-Setup](../workshop/02-setup/) - Sett opp det første meta-repoet.
+La meg vise dere hvordan dette ser ut i praksis...
+
+- [navikt/eessi-pensjon](https://github.com/navikt/eessi-pensjon) - [.meta](https://github.com/navikt/eessi-pensjon/blob/master/.meta) - [.gitignore](https://github.com/navikt/eessi-pensjon/blob/master/.gitignore)
+
+Note:
+- Vis https://github.com/navikt/eessi-pensjon
+- Vis .meta-filen og antall repositories
+- Forklar hvordan teamet bruker dette
+- Påpek .gitignore struktur
+- Dette er et ekte team med 15+ repositories
+
+--
+
+## 🛠️ Workshop-oppgaver 👷
+
+Nå skal vi gjøre de to første oppgavene i workshopen
 
 1. Gå hit: https://kjetiljd.github.io/meta-repo-workshop/
 2. Klikk på den blå knappen med "Gå til workshop".
-3. Klikk deg videre inn på oppgave 1: Installasjon
-4. Når du er ferdig med oppgave 1, gå videre til oppgave 2: Oppsett og grunnleggende struktur
+
+--
+
+## 🛠️ Workshop-oppgaver 1-2: Hands-on med `meta`
+
+**Hands-on tid!**
+
+- [**Installere meta**](../workshop/01-prereqs/) - Installer `meta` CLI
+- [**Oppsett og grunnleggende struktur**](../workshop/02-setup/) - Klon demo-repo og test grunnleggende kommandoer
+
+Note:
+- Nå skal dere få prøve meta selv
+- Start med 1 installere meta CLI
+- Deretter 2 for å skape meta-repoet
+- Spør hvis dere står fast!
+
+--
+
+## 🎯 Demo 2: Meta kommandoer i praksis
+
+**eessi-pensjon** - se meta i action
+
+Hvordan ser `meta exec` og andre kommandoer ut med et ekte system?
+
+Note:
+- Vis meta git status på eessi-pensjon
+- Kjør meta exec "pwd" for å vise strukturen
+- Demonstrer --exclude funksjonalitet
+- Vis meta exec "git branch --show-current"
+- Forklar hvordan dette sparer tid i daglig arbeid
+
+--
+
+## 🛠️ Workshop-oppgaver 3: Hands-on med `meta`
+
+**Hands-on tid!**
+
+- - [**Kommandolinje-øvelser**](../workshop/03-commands/) - `meta exec` og filtrering
+
+Note:
+- Nå skal vi øve på kommandoer
+- Spør hvis dere står fast!
 
 ---
 
@@ -433,7 +483,7 @@ Nå skal vi gjøre de to første oppgavene i workshopen:
 
 - **make** kom i 1976 (Bell Labs, Stuart Feldman)
 - Opprinnelig for å bygge C-programmer
-- I dag: automatisere alle typer oppgaver
+- I dag: også for å lage enkle kommando-menyer
 
 **Alternativer:**
 - Shell-script
@@ -567,11 +617,62 @@ grep finner alle linjer med ##, sed formaterer dem, og printf printer dem pent m
 
 --
 
-## 🛠️ Hands-on med Make 👷
+## 🛠️ Workshop-oppgave 4
 
-Nå skal vi jobbe med make og meta-repo:
+**Hands-on: Automatisering med Make**
 
-- [04-Automatisering](../workshop/04-automation/) - Make og Makefile
+- [**Automatisering med make/scripts**](../workshop/04-automation/) - Makefile oppsett, make stats med cloc
+
+Note:
+- Nå skal vi jobbe med make og meta-repo
+- Lag Makefile med nyttige kommandoer
+- Inkluderer make stats med cloc for kodeanalyse
+- Dette bygger videre på det vi lærte i oppgave 1-3
+
+--
+
+## 🎯 Demo 3: Real-world automatisering
+
+**eessi-pensjon** - Makefile og Gradle oppgraderinger
+
+Hvordan ser automatisering ut med et ekte system?
+
+Note:
+- Vis Makefile i eessi-pensjon
+- Kjør make stats og vis cloc-output
+- Demonstrer make hotspots for git-analyse
+- Vis gradle wrapper oppgraderinger på tvers
+- Forklar hvordan dette brukes i daglig arbeid
+
+--
+
+## 🛠️ Workshop-oppgave 5
+
+**Hands-on: Git-historikk analyse**
+
+- [**Git-historikk analyse**](../workshop/05-git-history/) - Hotspots og git log analyse
+
+Note:
+- Lag "hotspots" make target for å finne mest endrede filer
+- Analysere commit-historikk på tvers av repositories
+- Identifisere hvilke filer som endres oftest
+- Nyttig for å forstå hvor kompleksiteten ligger
+
+--
+
+## 🎯 Demo 4: Git historikk analyse
+
+**eessi-pensjon** - hvilke filer endres oftest?
+
+Praktisk git-analyse med 15+ repositories
+
+Note:
+- Kjør make hotspots på eessi-pensjon
+- Vis hvilke filer som endres oftest
+- Demonstrer git log analyse på tvers
+- Forklar hvordan dette hjelper med arkitektur-beslutninger
+- Vis commit patterns og utviklingsaktivitet
+
 
 ---
 
@@ -678,14 +779,31 @@ Hovedfordelene:
 
 --
 
-## 🛠️ Hands-on med Docker 👷
+## 🛠️ Workshop-oppgave 6
 
-Nå skal vi jobbe med Docker og meta-repo:
+**Hands-on: Docker og Docker Compose**
 
-- [04-Automatisering](../workshop/04-automation/) - Make og Makefile
-- [05-Docker setup](../workshop/05-dockered/) - Docker og Docker Compose
+- [**Docker og Docker Compose**](../workshop/06-dockered/) - Multi-service koordinering
 
-Fortsett med oppgave 4 og 5 i workshopen.
+Note:
+- Sett opp Docker Compose for meta-repo
+- Koordiner oppstart av flere services
+- Integrer Docker kommandoer med Makefile
+- Få oversikt over alle service-URLs
+
+--
+
+## 🎯 Demo 6: Analyse på tvers av repositories
+
+**eessi-pensjon** - Spring Boot versjoner og cloc kodestatistikk
+
+Hvordan få oversikt over hele økosystemet?
+
+Note:
+- Vis hvordan finne Spring Boot versjoner på tvers av alle repos
+- Kjør cloc analyse på hele meta-repoet
+- Demonstrer tertial-rapport og kodestatistikk
+- Forklar hvordan dette hjelper med teknisk gjeld og oppgraderinger
 
 ---
 
@@ -721,45 +839,22 @@ includeBuild "todo-frontend"
 includeBuild "todo-backend"  
 includeBuild "todo-sorter"
 ```
-
-**Fordeler:**
-- Alle sub-prosjekter i **én IntelliJ-workspace**
-- **Cross-repository refactoring**
-- **Unified search** på tvers av repos
-- **Konsistent konfiguration**
-
 Note:
 Gradle Composite Build lar deg kombinere flere separate Gradle-prosjekter til ett stort prosjekt.
-Dette gir deg alle fordelene av et monorepo i IDE-et uten å faktisk slå sammen koden.
-IntelliJ forstår strukturen og behandler det som ett stort prosjekt.
 
 --
 
-## Oppsett av Gradle Composite Build
+## Kan åpnes som ett prosjekt i IntelliJ
 
-1. **Opprett Gradle wrapper i meta-repo**:
-```bash
-gradle wrapper
-```
-
-2. **Lag settings.gradle**:
-```gradle
-rootProject.name = "my-meta-repo"
-
-includeBuild "service-a"
-includeBuild "frontend-app"
-includeBuild "shared-lib"
-```
-
-3. **Åpne meta-repo i IntelliJ**
-4. **Profit!** 🎉
+Alle sub-prosjekter i **én IntelliJ-workspace**
+- **Cross-repository refactoring**
+- **Søk** på tvers av repos
+- **Konsistent konfiguration**
 
 Note:
-Oppsettet er enkelt:
-1. Gradle wrapper gir deg konsistente Gradle-versjoner
-2. settings.gradle definerer hvilke repos som skal inkluderes
-3. IntelliJ gjenkjenner automatisk strukturen
-4. Alle sub-prosjekter blir synlige i samme workspace
+Nå kan vi åpne det hele som ett prosjekt i IntelliJ.
+IntelliJ forstår strukturen og behandler det som ett stort prosjekt.
+Men ikke alt virker så dette er mest for reading.
 
 --
 
@@ -769,11 +864,7 @@ Oppsettet er enkelt:
 
 ✅ **Refactoring** som berører flere prosjekter
 
-✅ **Unified run configurations**
-
 ✅ **Cross-project navigation**
-
-✅ **Consistent code style** settings
 
 ✅ **Shared build configurations**
 
@@ -788,15 +879,198 @@ Med Gradle Composite Build får du:
 
 --
 
+## 🎯 Demo 7: IDE integrasjon med unified workspace
+
+**eessi-pensjon** - enhetlig søk, navigering og workspace
+
+Gradle Composite Build i praksis
+
+Note:
+- Vis enhetlig IntelliJ workspace med alle repositories
+- Demonstrer global search på tvers av alle repos
+- Vis cross-repository navigation og refactoring
+- Forklar hvordan dette forbedrer utvikleropplevelsen betydelig
+- Sammenlign med å ha 15+ separate prosjekter åpne
+
+--
+## 🛠️ Workshop-oppgave 7
+
+**Hands-on: IDE-integrasjon**
+
+- [**IDE-integrasjon**](../workshop/07-ide-integration/) - Gradle Composite Build
+
+Note:
+- Sett opp Gradle Composite Build for meta-repo
+- Åpne alle repositories som ett prosjekt i IntelliJ
+- Utforsk unified workspace og cross-repo navigation
+- Opplev global search på tvers av alle repos
+
+---
+
+# Templates på tvers av repositories
+
+--
+
+## Utfordringen med konsistens
+
+**Når du har mange repos:**
+- Forskjellige CI/CD-konfigurasjoner
+- Ulike Docker-oppsett  
+- Inkonsistente kodestandarder
+- Manuelle oppdateringer tar tid
+
+**Løsning: Template-system**
+
+Note:
+Med mange repositories blir det utfordrende å holde konfigurasjoner konsistente.
+Hver repo kan drifte i sin egen retning.
+Template-systemer løser dette ved å sentralisere og automatisere oppdateringer.
+
+--
+
+## Template-system med Jinja2
+
+**Arkitektur:**
+```
+templates/
+├── .github/workflows/ci.yml      # Template for CI
+├── Dockerfile.j2                 # Docker template
+└── .gitignore                    # Standard gitignore
+
+template-data/
+├── service-a.yml                 # Data for service-a
+├── service-b.yml                 # Data for service-b
+└── frontend.yml                  # Data for frontend
+```
+
+**Generering:**
+```bash
+make generate-files  # Oppdater alle repos med templates
+```
+
+Note:
+Template-systemet bruker Jinja2 for å generere filer.
+Templates definerer strukturen, data-filer tilpasser per repository.
+Ett make-kommando oppdaterer alle repositories.
+
+--
+
+## Eksempel: GitHub Actions template
+
+**Template** (.github/workflows/ci.yml):
+```yaml
+name: CI/CD Pipeline
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest  
+    steps:
+    - uses: actions/setup-java@v3
+      with:
+        java-version: {{ java_version }}
+    - run: ./gradlew build
+```
+
+**Data-fil** (template-data/service-a.yml):
+```yaml
+java_version: "21.0.4"
+app_name: "service-a"
+```
+
+Note:
+Templates bruker Jinja2-syntaks med {{ variable }}.
+Hver repository har sin egen data-fil med spesifikke verdier.
+Dette gir fleksibilitet mens konsistensen bevares.
+
+--
+
+## 🎯 Demo 6: Template-system
+
+**Java version oppgradering fra 21.0.4 til 21.0.8**
+
+Live demo: Koordinert oppgradering på tvers av alle repos
+
+Note:
+- Vis template-systemet i eessi-pensjon
+- Demonstrer Java version bump fra 21.0.4 til 21.0.8
+- Kjør make generate-files for å oppdatere alle repos
+- Forklar hvordan dette brukes for Docker base images, dependencies osv.
+
+--
+
+## Template-muligheter
+
+**Konfigurasjonsfiler:**
+- GitHub Actions workflows
+- Docker og docker-compose filer
+- Makefile standarder
+- .gitignore og .editorconfig
+
+**Kode-templates:**
+- README-struktur
+- Kubernetes manifests  
+- Security-konfigurasjoner
+- Monitoring og alerting
+
+**Automatisering:**
+- Scheduled template updates
+- Dependency version bumps
+- Security patch rollouts
+
+Note:
+Template-systemer kan standardisere alt fra build-konfigurasjoner til dokumentasjon.
+Automatisering gjør at oppdateringer kan kjøres på schedule.
+Perfekt for security patches og dependency management.
+
+---
+
+# Cross-repo koordinering: Mer enn bare kode
+
+--
+
+## 🛠️ Hands-on: Cross-repo
+
+La oss prøve noe selv:
+
+➡️ [**Cross-repo endring**](../workshop/08-cross-repo/)
+
+Endringer på tvers av repositories – med git.
+
+--
+
+## Flere cross-repo muligheter
+
+**Build & CI/CD:**
+- Oppdatere gradle-wrapper og andre verktøy (Docker, Node, Python)
+- Bytte Docker baseimage
+
+--
+
+## Flere cross-repo muligheter
+
+**Kode-modernisering:**
+- Oppdatere mange steder pga deprekert API
+- Trekke ut bibliotek fra flere app'er
+- Konsolidere/redusere variasjon (Kent Beck: "Normalize Symmetries")
+
+--
+
+## Flere cross-repo muligheter
+
+**Infrastruktur:**
+- Endringer i oppstartsscript for Docker-containere
+- Oppsett av regler og sjekker for brancher/PR'er på GitHub
+- Sette opp formatteringsregler (.editorconfig)
+- Minor/patch/major-oppgraderinger av avhengigheter
+
+Note:
+Dette er bare noen eksempler på hva som er mulig med meta-repo koordinering.
+Meta-mønsteret åpner for mange kreative løsninger på repetitive oppgaver.
+
+--
+
 # Spørsmål?
 
-<br>
-
-### Kontakt
-- Email: [din-email]
-- GitHub: [@din-github]
-- Twitter: [@din-twitter]
-
-<br>
+---
 
 **Takk for deltakelsen!** 🙏

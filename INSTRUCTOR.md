@@ -1,25 +1,58 @@
 # 📋 INSTRUKTØR GUIDE
 
-## Workshop Flyt Struktur
+## Workshop-struktur
 1. **Introduksjon (Del 1)**: Problemstilling - utfordringer med mange repositories
-2. **Meta-repository Konsept (Del 2)**: Hva er meta-repo, fordeler, alternative verktøy
-   - **Demo 1**: Real-world meta-repo introduksjon med eessi-pensjon
+2. **Meta-repo (Del 2)**: Hva er meta-repo, fordeler, alternative verktøy
 3. **Meta Verktøy (Del 3)**: Introduksjon til `meta` CLI, grunnleggende kommandoer
+    - **Demo 1**: Real-world meta-repo introduksjon med eessi-pensjon
    - **Forutsetninger (01-prereqs/)**: Installer Node.js, npm, og `meta` CLI verktøy (Docker-alternativ tilgjengelig)
    - **Oppsett (02-setup/)**: Klon demo-meta-repo, legg til sub-repo, test grunnleggende kommandoer
-   - **Kommandoer (03-commands/)**: Kommandolinje-øvelser med `meta exec`, ekskludering og kommando-kjeding
    - **Demo 2**: Meta kommandoer i praksis med eessi-pensjon
+   - **Kommandoer (03-commands/)**: Kommandolinje-øvelser med `meta exec`, ekskludering og kommando-kjeding (inkluderer cloc i steg 5)
 4. **Automatisering (Del 4)**: Make og Makefile integrasjon
-   - **Automatisering Praksis (04-automation/)**: Make og Makefile oppsett, automatiseringsskript
+   - **Automatisering Praksis (04-automation/)**: Make og Makefile oppsett, automatiseringsskript (inkluderer make stats med cloc)
    - **Demo 3**: Real-world automatisering - Makefile og Gradle oppgraderinger med eessi-pensjon
-5. **Docker & Docker Compose (Del 5)**: Docker containere og service koordinering
-   - **Docker Praksis (05-dockered/)**: Docker Compose oppsett for meta-repo med service koordinering
-   - **Demo 4**: Analyse på tvers av repositories - Spring Boot versjoner, kodestatistikk og tertialrapporter
-6. **IDE Integrasjon (Del 6)**: Gradle Composite Build, enhetlig IntelliJ workspace
-   - **IDE Integrasjon Praksis (06-ide-integration/)**: Gradle Composite Build og enhetlig IntelliJ workspace
+5. **Git-historikk analyse (Del 5)**: Code hotspots og analyse
+   - **Git Analyse Praksis (05-git-history/)**: Lag "hotspots" make target for å finne mest endrede filer
+   - **Demo 4**: Git historikk analyse - hvilke filer endres oftest i eessi-pensjon
+   - **Demo 5**: Analyse på tvers av repositories - Spring Boot versjoner, cloc kodestatistikk og tertialrapporter
+6. **Docker & Docker Compose (Del 6)**: Docker containere og service koordinering
+   - **Docker Praksis (06-dockered/)**: Docker Compose oppsett for meta-repo med service koordinering
+7. **IDE Integrasjon (Del 7)**: Gradle Composite Build, enhetlig IntelliJ workspace
+   - **IDE Integrasjon Praksis (07-ide-integration/)**: Gradle Composite Build og enhetlig IntelliJ workspace
    - **Demo 5**: IDE integrasjon med enhetlig søk, navigering og workspace
+8. **Templates på tvers (Del 8)**: Template-system for konsistens
+   - **Demo 6**: Template-system - Java version oppgradering fra 21.0.4 til 21.0.8 med eessi-pensjon
+9. **Cross-repo koordinering (Del 9)**: Mer enn bare kode
+   - **Cross-repo Praksis (08-cross-repo/)**: Lag "recent-activity" make target, koordinert commit workflow
+   - Flere eksempler: dependency management, sikkerhet, konfigurasjonsendringer, release koordinering
 
-## ⏱ WORKSHOP-SPEC.md Tidsplan (2 timer)
+## ⏱ FAKTISK TIDSPLAN (basert på vurdering av innhold)
+
+| Tid | Varighet | Tema | Type | Notater |
+|-----|----------|------|------|---------|
+| 00:00 | 5 min | **Del 1: Introduksjon** | Slides | Velkommen, problemstilling |
+| 00:05 | 10 min | **Del 2: Meta-repo konsept** | Slides + Demo 1 | Motivasjon, eessi-pensjon demo |
+| 00:15 | 5 min | **Del 3: Meta-verktøyet** | Slides + Demo 2 | .meta-fil, kommandoer |
+| 00:20 | 15 min | **01-prereqs + 02-setup** | Hands-on | Node/npm install, klon, meta init |
+| 00:35 | 15 min | **03-commands** | Hands-on | meta exec, filtrering, cloc (steg 5) |
+| 00:50 | 5 min | **Del 4: Make introduksjon** | Slides | Makefile syntax, .PHONY osv |
+| 00:55 | 15 min | **04-automation** | Hands-on + Demo 3 | Makefile, make stats, eessi demo |
+| 01:10 | 15 min | **05-git-history** | Hands-on + Demo 4 | Hotspots, git log analyse |
+| 01:25 | 3 min | **Del 5: Docker intro** | Slides | Docker Compose konsepter |
+| 01:28 | 3 min | **Del 6: IDE intro** | Slides | Gradle Composite Build |
+| 01:31 | 4 min | **Del 7: Templates** | Slides + Demo 6 | Template-system, Java version bump |
+| 01:35 | 15 min | **Del 8: Cross-repo koordinering** | Slides + **08-cross-repo** | Eksempler + hands-on |
+| 01:50 | 10 min | **Del 9: Flere muligheter + avslutning** | Slides | Dependency mgmt, sikkerhet osv |
+| **02:00** | | **FERDIG** | | |
+
+**Prioritering:**
+- **Kjerneinnhold**: Del 1-4 + workshop 01-04 (grunnleggende meta + make)
+- **Avansert**: Del 5-9, prioriter git-history og cross-repo workshops  
+- **Kan forkortes**: Del 5-6 slides, Demo 5, Demo 7
+- **Kan skipes**: 06-dockered, 07-ide-integration workshops
+
+## ⏱ WORKSHOP-SPEC.md Tidsplan (2 timer) - OPPRINNELIG
 
 | Tid | Varighet | Tema | Type |
 |-----|----------|------|------|
@@ -109,8 +142,9 @@ meta exec "git remote set-url origin https://github.com/..."
 - Skip til oppgave 2
 
 **Hvis vi går tom for tid:**
-- Prioriter oppgave 1-3, 6, 8
-- Del løsninger for resten
+- Prioriter oppgave 1-4 (core meta setup og automation)  
+- Vis Demo 6 (templates) i stedet for hands-on
+- Skip workshop 06-07, fokus på 05 (git-history) og 08 (cross-repo)
 - Fokus på konsepter over hands-on
 
 ## ✅ Sjekkliste før start

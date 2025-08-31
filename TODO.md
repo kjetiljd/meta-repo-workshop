@@ -55,32 +55,44 @@
   - [X] Script for bulk-operasjoner
   - [X] Make og meta integration
 
-### Oppgave 4: Kodeendring på tvers (10 min)
-- [ ] **workshop/04-cross-repo/**
-  - [ ] Search/replace på tvers av repos
-  - [ ] Refactoring-eksempel
-  - [ ] Commit og push til alle
+### Oppgave 5: Git-historikk analyse (15 min)
+- [X] **workshop/05-git-history/**
+  - [X] Lag "hotspots" make target for mest endrede filer
+  - [X] Git log analyse på tvers av repositories
+  - [X] Drill-down til spesifikk commit-historikk for filer
 
-### Oppgave 5: Kodeanalyse med cloc (10 min)
-- [ ] **workshop/05-analysis/**
-  - [ ] Installer cloc
-  - [ ] Analyser kodebase samlet
-  - [ ] Generer rapport
+### Oppgave 6: Docker & Docker Compose (15 min)
+- [X] **workshop/06-dockered/**
+  - [X] Docker Compose oppsett for meta-repo
+  - [X] Service koordinering
+  - [X] Multi-service development environment
 
-### Oppgave 6: Git-historikk (15 min)
-- [ ] **workshop/06-git-history/**
-  - [ ] Samle commit-statistikk
-  - [ ] Generere release notes
-  - [ ] Contributor-analyse
+### Oppgave 7: IDE integrasjon (15 min)
+- [X] **workshop/07-ide-integration/**
+  - [X] Gradle Composite Build
+  - [X] Enhetlig IntelliJ workspace
+  - [X] Cross-repo søk og navigering
 
-### Oppgave 7: Templates (10 min)
-- [ ] **workshop/07-templates/**
-  - [ ] Felles .gitignore
-  - [ ] CI/CD templates
-  - [ ] README-template
+### Oppgave 8: Kodeendring på tvers (10 min) 
+- [X] **workshop/08-cross-repo/**
+  - [X] Cross-repo make target addition
+  - [X] Git history coordination
+  - [X] Commit coordination workflow
 
-### Oppgave 8: Nytt meta-repo (10 min)
-- [X] **workshop/08-new-meta/** - DEKKET (gjøres tidlig i workshop)
+### Oppgave 9: Templates (10 min)
+- [X] **Dekket i slides + demo med eessi-pensjon template-system**
+  - [X] Jinja2 template-system forklaring (slides)
+  - [X] GitHub Actions workflow templates (demo)
+  - [X] Live demo: Java version bump 21.0.4 → 21.0.8 (demo manuscript)
+
+### Oppgave XX: Kodeanalyse med cloc (10 min)
+- [X] **workshop/03-commands Step 5 + workshop/04-automation make stats + Demo 5**
+  - [X] Installer cloc (dekket i 03-commands)
+  - [X] Analyser kodebase samlet (dekket i 04-automation make stats og Demo 5)
+  - [X] Generer rapport (dekket i Demo 5)
+
+### Oppgave XX: Nytt meta-repo (10 min)
+- [X] **workshop/XX-new-meta/** - DEKKET (gjøres tidlig i workshop)
   - [X] meta init
   - [X] meta project add
   - [X] Konfigurere .meta
@@ -88,10 +100,11 @@
 ## 🟢 BRA Å HA - Ekstra materiale
 
 ### Demo-seksjoner
-- [X] **Eessi-pensjon demos (5 demos totalt)**
+- [X] **Eessi-pensjon demos (6 demos totalt)**
   - [X] Real-world meta-repo introduction
   - [X] Meta commands in practice  
   - [X] Automation with Makefile and Gradle upgrades
+  - [X] Git history analysis - code hotspots with eessi-pensjon
   - [X] Cross-repository analysis (Spring Boot versions, cloc, tertial reports)
   - [X] IDE integration with unified search and navigation
 - [ ] **Meta-CLI demo (5 min)** - mangler i WORKSHOP-SPEC.md

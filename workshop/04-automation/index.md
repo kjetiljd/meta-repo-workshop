@@ -197,4 +197,4 @@ health: ## Kjør health check på alle services
 - Test kommandoer først med `meta exec` før du legger dem i Makefile
 - `$(MAKE)` er bedre enn `make` i Makefiles
 
-**[← Tilbake til oversikt](../)** | **[→ Neste oppgave: Docker](../05-dockered/)**
+**[← Tilbake til oversikt](../)** | **[→ Neste oppgave: Git-historikk analyse](../05-git-history/)**

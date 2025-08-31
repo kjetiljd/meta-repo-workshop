@@ -1,8 +1,8 @@
-# Oppgave 5: Docker og Docker Compose
+# Oppgave 6: Docker og Docker Compose
 
 > **Denne delen krever Docker og Docker Compose installert på maskinen din.** Hvis du ikke har Docker installert, kan du enten:
 > - Installere Docker, f eks fra [docker.com/get-started](https://www.docker.com/get-started/) 
-> - Hoppe over denne oppgaven og gå direkte til [Oppgave 6: IDE-integrasjon](../06-ide-integration/) men les gjerne igjennom stegene for å forstå hvordan dette fungerer.
+> - Hoppe over denne oppgaven og gå direkte til [Oppgave 7: IDE-integrasjon](../07-ide-integration/) men les gjerne igjennom stegene for å forstå hvordan dette fungerer.
 
 ## 📋 Mål
 
@@ -277,4 +277,4 @@ docker run -it meta-todo_meta-todo-backend:latest sh
 - Bruk `docker system prune` for å rydde opp disk space
 - `depends_on` sikrer riktig oppstartsrekkefølge
 
-**[← Tilbake til oversikt](../)** | **[→ Neste: IDE-integrasjon](../06-ide-integration/)**
+**[← Tilbake til oversikt](../)** | **[→ Neste oppgave: IDE-integrasjon](../07-ide-integration/)**
