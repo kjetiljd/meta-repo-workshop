@@ -116,6 +116,7 @@ cd eessi-pensjon
 - "Dette teamet har automatisert forskjellige ting - fra enkle git-operasjoner til komplekse dependency-oppdateringer"
 - "Nye teammedlemmer trenger bare å lære make-kommandoene, ikke interne detaljer"
 - "Se hvor ryddig alt er dokumentert med ## kommentarer"
+- "Dette er hvor det blir kraftfullt - tenk på repetitive tasks dere har"
 - "Så kan man kanskje si at dette kan løses med Dependabot? Ja, men det blir fort mye dependabot PRs å håndtere manuelt"
 - "Og det er ikke alle oppgaver som kan automatiseres med Dependabot"
 

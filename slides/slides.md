@@ -10,6 +10,9 @@ Note:
 - Velkommen til workshop om meta-repositories
 - 2 timer sammen
 - En ganske praktisk tilnærming
+- Hvor mange jobber med 5+ repos?
+- Hvem har vurdert monorepo?
+- WiFi-passord, Slack-kanal
 
 --
 
@@ -242,6 +245,9 @@ Note:
 - Ett repo:
   - Evt alle repo som tilhører "et system"
   - Eller en annen gruppe av repo man ønsker å håndtere sammen
+- Kontekst-switching dreper produktivitet
+- Monorepo er ikke alltid svaret
+- Meta-repo = best of both worlds
 
 KLIKK!
 
@@ -314,6 +320,9 @@ Note:
 - Laget av en som heter Matt Williams
 - Finnes på github
 - Forutsetter at du har node/npm installert
+- NPM-pakke, ikke eget system
+- .meta er bare JSON
+- Plugins for alt mulig
 
 - Dere trenger ikke gjøre dette ennå
 - Det kommer oppskrift etterhvert
