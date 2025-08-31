@@ -402,6 +402,24 @@ Note:
 
 --
 
+## 🛠️ Hands-on med `meta` 👷
+
+Nå skal vi gjøre de to første oppgavene i workshopen:
+
+- [01-Installasjon](../workshop/01-prereqs/) - Installere `meta`
+- [02-Setup](../workshop/02-setup/) - Sett opp det første meta-repoet.
+
+1. Gå hit: https://kjetiljd.github.io/meta-repo-workshop/
+2. Klikk på den blå knappen med "Gå til workshop".
+3. Klikk deg videre inn på oppgave 1: Installasjon
+4. Når du er ferdig med oppgave 1, gå videre til oppgave 2: Oppsett og grunnleggende struktur
+
+---
+
+# Del 4: Automatisering med make
+
+--
+
 ## Verktøy: make og Makefile
 
 - **make** kom i 1976 (Bell Labs, Stuart Feldman)
@@ -540,21 +558,15 @@ grep finner alle linjer med ##, sed formaterer dem, og printf printer dem pent m
 
 --
 
-## 🛠️ Hands-on med `meta` 👷
+## 🛠️ Hands-on med Make 👷
 
-Nå skal vi gjøre de to første oppgavene i workshopen:
+Nå skal vi jobbe med make og meta-repo:
 
-- [01-Installasjon](../workshop/01-prereqs/) - Installere `meta`
-- [02-Setup](../workshop/02-setup/) - Sett opp det første meta-repoet.
-
-1. Gå hit: https://kjetiljd.github.io/meta-repo-workshop/ 
-2. Klikk på den blå knappen med "Gå til workshop".
-3. Klikk deg videre inn på oppgave 1: Installasjon
-4. Når du er ferdig med oppgave 1, gå videre til oppgave 2: Oppsett og grunnleggende struktur
+- [04-Automatisering](../workshop/04-automation/) - Make og Makefile
 
 ---
 
-# Del 4: Docker & Docker Compose
+# Del 5: Docker & Docker Compose
 
 --
 
@@ -579,7 +591,6 @@ Docker løser mange av utfordringene med å ha mange repositories:
 ## Docker Compose for meta-repo
 
 ```yaml
-version: '3.8'
 services:
   frontend:
     build: ./todo-frontend
@@ -624,15 +635,15 @@ logs: ## Vis service logs
 
 urls: ## Vis service URLs
 	@echo "Frontend: http://localhost:8081"
-	@echo "Backend:  http://localhost:8082" 
-	@echo "Sorter:   http://localhost:8083"
+	@echo "Backend:  http://localhost:8082/api/todos/count" 
+	@echo "Sorter:   http://localhost:8083/health"
 ```
 
 Note:
 Ved å kombinere Docker Compose med make får du kraftige shortcuts.
 -d flag starter services i bakgrunnen
-urls-kommandoen viser hvor du finner alle services
 logs lar deg følge med på all output fra alle services
+urls-kommandoen viser hvor du finner alle services
 
 --
 
@@ -642,7 +653,7 @@ logs lar deg følge med på all output fra alle services
 
 ✅ **Automatisk dependency-håndtering**
 
-✅ **Konsistente versjoner** på tvers av team
+✅ **Konsistente versjoner**
 
 ✅ **Enkelt å legge til nye services**
 
@@ -651,10 +662,10 @@ logs lar deg følge med på all output fra alle services
 Note:
 Hovedfordelene:
 - En kommando: `make up` og alt er i gang
-- Automatisk: Docker Compose starter services i riktig rekkefølge
-- Konsistente versjoner: Dockerfile definerer eksakte versjoner
+- Automatisk: Docker Compose kan starte services i riktig rekkefølge
+- Konsistente versjoner: Dockerfile kan om man vil definere eksakte versjoner
 - Skalerbart: Nye services legges bare til i docker-compose.yml
-- CI/CD: Samme oppsett kan brukes i produksjon
+- Samme docker kan brukes i CI/CD pipelines og i produksjon
 
 --
 
@@ -669,7 +680,7 @@ Fortsett med oppgave 4 og 5 i workshopen.
 
 ---
 
-# Del 5: IDE-integrasjon
+# Del 6: IDE-integrasjon
 
 --
 
