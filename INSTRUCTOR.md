@@ -3,10 +3,10 @@
 ## Workshop-struktur
 1. **Introduksjon (Del 1)**: Problemstilling - utfordringer med mange repositories
 2. **Meta-repo (Del 2)**: Hva er meta-repo, fordeler, alternative verktøy
+   - **Forutsetninger (01-prereqs/)**: Installer Node.js, npm, og `meta` CLI verktøy (Docker-alternativ tilgjengelig)
 3. **Meta Verktøy (Del 3)**: Introduksjon til `meta` CLI, grunnleggende kommandoer
     - **Demo 1**: Real-world meta-repo introduksjon med eessi-pensjon
-   - **Forutsetninger (01-prereqs/)**: Installer Node.js, npm, og `meta` CLI verktøy (Docker-alternativ tilgjengelig)
-   - **Oppsett (02-setup/)**: Klon demo-meta-repo, legg til sub-repo, test grunnleggende kommandoer
+   - **Oppsett (02-setup/)**: Klon Oppdemo-meta-repo, legg til sub-repo, test grunnleggende kommandoer
    - **Demo 2**: Meta kommandoer i praksis med eessi-pensjon
    - **Kommandoer (03-commands/)**: Kommandolinje-øvelser med `meta exec`, ekskludering og kommando-kjeding (inkluderer cloc i steg 5)
 4. **Automatisering (Del 4)**: Make og Makefile integrasjon
@@ -32,9 +32,9 @@
 | Tid | Varighet | Tema | Type | Notater |
 |-----|----------|------|------|---------|
 | 00:00 | 5 min | **Del 1: Introduksjon** | Slides | Velkommen, problemstilling |
-| 00:05 | 10 min | **Del 2: Meta-repo konsept** | Slides + Demo 1 | Motivasjon, eessi-pensjon demo |
-| 00:15 | 5 min | **Del 3: Meta-verktøyet** | Slides + Demo 2 | .meta-fil, kommandoer |
-| 00:20 | 15 min | **01-prereqs + 02-setup** | Hands-on | Node/npm install, klon, meta init |
+| 00:05 | 10 min | **Del 2: Meta-repo konsept + 01-prereqs** | Slides + Hands-on | Motivasjon + Node/npm install |
+| 00:15 | 5 min | **Del 3: Meta-verktøyet** | Slides + Demo 1 | .meta-fil, kommandoer, eessi-pensjon demo |
+| 00:20 | 15 min | **02-setup** | Hands-on + Demo 2 | Klon, meta init, eessi praksis |
 | 00:35 | 15 min | **03-commands** | Hands-on | meta exec, filtrering, cloc (steg 5) |
 | 00:50 | 5 min | **Del 4: Make introduksjon** | Slides | Makefile syntax, .PHONY osv |
 | 00:55 | 15 min | **04-automation** | Hands-on + Demo 3 | Makefile, make stats, eessi demo |

@@ -12,7 +12,7 @@ Note:
 - En ganske praktisk tilnærming
 - Hvor mange jobber med 5+ repos?
 - Hvem har vurdert monorepo?
-- WiFi-passord, Slack-kanal
+- WiFi-passord
 
 --
 
@@ -20,7 +20,7 @@ Note:
 
 - **Introduksjon** - Problemet og løsningen
 - **Workshop** - Presentasjon, demo og hands-on
-- **Avslutning** - Avanserte eksempler og Q&A
+- **Avslutning** - Hva mer kan man gjøre?
 
 Note:
 - Mye praktisk arbeid
@@ -125,7 +125,7 @@ Og i team der det har vært så mye omskiftinger at man er usikre på hvilke rep
 
 --
 
-## Multi-repo
+## Mange repo
 
 ```text
 repos
@@ -202,6 +202,22 @@ Note:
 
 --
 
+## Flere alternativ?
+
+### Monolitt?<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Note:
+
+Ok. Finnes det flere alternativ?
+
+Monolitt er jo en løsning
+- Alt i en app
+- Har vært prøvd før
+- Krever ekstrem disiplin for å unngå spaghetti
+- Vanskelig med eierskap når det er for stort for ett team
+
+--
+
 ## Hva gjør folk for å håndtere mange repo?
 
 - 🚫Ingenting (veldig vanlig!) <!-- .element: class="fragment" -->
@@ -210,7 +226,13 @@ Note:
 - 💲Kommandolinjen til å gjøre ting på tvers <!-- .element: class="fragment" -->
 - ䷝ Team-CLI for å gjøre ting på tvers <!-- .element: class="fragment" -->
 - 📐Template-repo <!-- .element: class="fragment" -->
-- 🤘Meta-repo! <!-- .element: class="fragment" -->
+- 🤘Meta-repo!! <!-- .element: class="fragment" -->
+
+Note:
+... men merk at det skjer ting rundt mono-repo, og det kommer stadig bedre støtte i verktøy
+Men det er helt klart en oppstartskost med å komme igang med mono-repo.
+De som er villige til å ta den kostnaden er ofte veldig fornøyde etterpå.
+Men uansett om man skal dit så tenker jeg meta-repo kan være et godt mellomsteg.
 
 ---
 
@@ -324,6 +346,27 @@ Note:
 - Det kommer oppskrift etterhvert
 
 --
+## 🛠️ Workshop-oppgaver 👷
+
+Nå skal vi gjøre den første oppgavene i workshopen
+
+1. https://kjetiljd.github.io/meta-repo-workshop/
+2. **Gå til workshop**
+
+--
+
+## 🛠️ Workshop-oppgave 1: Installere meta
+
+**Hands-on tid!**
+
+- [**Installere meta**](../workshop/01-prereqs/) - Installer `meta` CLI
+
+Note:
+- Start med å installere meta-verktøyet
+- Docker-containere kan laste ned mens vi fortsetter
+- Spør hvis dere står fast!
+
+--
 
 ## Opprette et meta-prosjekt
 
@@ -424,26 +467,16 @@ Note:
 
 --
 
-## 🛠️ Workshop-oppgaver 👷
-
-Nå skal vi gjøre de to første oppgavene i workshopen
-
-1. Gå hit: https://kjetiljd.github.io/meta-repo-workshop/
-2. Klikk på den blå knappen med "Gå til workshop".
-
---
-
-## 🛠️ Workshop-oppgaver 1-2: Hands-on med `meta`
+## 🛠️ Workshop-oppgave 2: Oppsett
 
 **Hands-on tid!**
 
-- [**Installere meta**](../workshop/01-prereqs/) - Installer `meta` CLI
 - [**Oppsett og grunnleggende struktur**](../workshop/02-setup/) - Klon demo-repo og test grunnleggende kommandoer
 
 Note:
 - Nå skal dere få prøve meta selv
-- Start med 1 installere meta CLI
-- Deretter 2 for å skape meta-repoet
+- Klon demo-meta-repo og test grunnleggende meta-kommandoer
+- Lær .meta-fil struktur
 - Spør hvis dere står fast!
 
 --
@@ -463,14 +496,15 @@ Note:
 
 --
 
-## 🛠️ Workshop-oppgaver 3: Hands-on med `meta`
+## 🛠️ Workshop-oppgave 3: Kommandoer
 
 **Hands-on tid!**
 
-- - [**Kommandolinje-øvelser**](../workshop/03-commands/) - `meta exec` og filtrering
+- [**Kommandolinje-øvelser**](../workshop/03-commands/) - `meta exec` og filtrering
 
 Note:
-- Nå skal vi øve på kommandoer
+- Nå skal vi øve på meta-kommandoer
+- meta exec, --exclude funksjonalitet
 - Spør hvis dere står fast!
 
 ---
@@ -481,7 +515,7 @@ Note:
 
 ## Verktøy: make og Makefile
 
-- **make** kom i 1976 (Bell Labs, Stuart Feldman)
+- **make** er gammelt, kom i 1976 (Bell Labs, Stuart Feldman)
 - Opprinnelig for å bygge C-programmer
 - I dag: også for å lage enkle kommando-menyer
 
