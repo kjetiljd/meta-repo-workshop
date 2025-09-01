@@ -106,19 +106,10 @@ meta exec "echo start ; echo sleep \$((RANDOM % 5 + 1)) ; echo end" --parallel
 
 ### Steg 5: Kodestatistikk med cloc
 
-Bruk `cloc` for å få oversikt over kodebasen:
-
-```shell
-meta exec "cloc . --vcs=git"
-```
-
-Dette gir deg statistikk over antall linjer kode per språk i hvert repo. 
-Vi bruker `--vcs=git` for å telle kun filer som er sporet av Git.
-
 <details markdown="1">
   <summary>Installasjon av cloc – om nødvendig</summary>
 
-[cloc](https://github.com/AlDanial/cloc) – "Count Lines of Code" – er et populært verktøy for å telle linjer med kode i et prosjekt.  
+[cloc](https://github.com/AlDanial/cloc) – "Count Lines of Code" – er et populært verktøy for å telle linjer med kode i et prosjekt.
 
 Om du ikke har `cloc` installert, så er det [rekordmange muligheter](https://github.com/AlDanial/cloc?tab=readme-ov-file#install-via-package-manager), her er noen:
 
@@ -135,7 +126,7 @@ brew install cloc
 
 Vurdér å bruke Docker-containeren som allerede har cloc installert.
 
-Utestede alternativer: 
+Utestede alternativer:
 ```powershell
 # Windows Package Manager
 winget install AlDanial.Cloc
@@ -153,6 +144,15 @@ sudo apt install cloc
 ```
 </details>
 </details>
+
+Bruk `cloc` for å få oversikt over kodebasen:
+
+```shell
+meta exec "cloc . --vcs=git"
+```
+
+Dette gir deg statistikk over antall linjer kode per språk i hvert repo. 
+Vi bruker `--vcs=git` for å telle kun filer som er sporet av Git.
 
 ### Steg 6: Pipeline og betinget kjøring
 

@@ -12,6 +12,7 @@ Note:
 - En ganske praktisk tilnærming
 - Hvor mange jobber med 5+ repos?
 - Hvem har vurdert monorepo?
+- Hvem har faktisk monorepo?
 - WiFi-passord
 
 --
@@ -40,7 +41,7 @@ Note:
 ## Hvem er jeg?
 
 - Kjetil 
-- 25+ år som utvikler 
+- 30+ år som utvikler 
 - Interessert i _utvikleropplevelsen_
 - Mange år som konsulent, så noen år i NAV
 - Nå jobber jeg i Telenor
