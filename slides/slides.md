@@ -941,7 +941,7 @@ Note:
 
 ---
 
-# Templates på tvers av repositories
+# Del 7: Templates på tvers av repositories
 
 --
 
@@ -1032,7 +1032,7 @@ Note:
 
 --
 
-## Template-muligheter
+## Template-muligheter I
 
 **Konfigurasjonsfiler:**
 - GitHub Actions workflows
@@ -1040,16 +1040,24 @@ Note:
 - Makefile standarder
 - .gitignore og .editorconfig
 
+--
+
+## Template-muligheter II
+
 **Kode-templates:**
 - README-struktur
 - Kubernetes manifests  
 - Security-konfigurasjoner
 - Monitoring og alerting
 
+--
+
+## Template-muligheter III
+
 **Automatisering:**
 - Scheduled template updates
 - Dependency version bumps
-- Security patch rollouts
+- Security bump rollouts
 
 Note:
 Template-systemer kan standardisere alt fra build-konfigurasjoner til dokumentasjon.
@@ -1058,7 +1066,7 @@ Perfekt for security patches og dependency management.
 
 ---
 
-# Cross-repo koordinering: Mer enn bare kode
+# Del 8: Cross-repo koordinering: Mer enn bare kode
 
 --
 
@@ -1107,4 +1115,13 @@ Meta-mønsteret åpner for mange kreative løsninger på repetitive oppgaver.
 
 ---
 
+Mono-repo eller mange repo?
+# Prøv meta-repo!
+## Workshop
+
 **Takk for deltakelsen!** 🙏
+
+JavaZone 2025
+
+<small>Kjetil Jørgensen-Dahl - Telenor</small>
+
