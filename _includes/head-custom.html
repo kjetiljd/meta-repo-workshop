@@ -1,0 +1,140 @@
+<!-- Custom head snippets -->
+<style>
+.code-block-container {
+    position: relative;
+}
+
+.copy-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    z-index: 1;
+}
+
+.copy-button:hover {
+    opacity: 1;
+    background: #555;
+}
+
+.copy-button.copied {
+    background: #28a745;
+    opacity: 1;
+}
+
+.highlighter-rouge {
+    position: relative;
+}
+
+.highlighter-rouge .copy-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(51, 51, 51, 0.9);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    z-index: 1;
+}
+
+.highlighter-rouge:hover .copy-button {
+    opacity: 1;
+}
+
+.highlighter-rouge .copy-button:hover {
+    background: rgba(85, 85, 85, 0.9);
+}
+
+.highlighter-rouge .copy-button.copied {
+    background: rgba(40, 167, 69, 0.9);
+    opacity: 1;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all code blocks and add copy buttons
+    const codeBlocks = document.querySelectorAll('div.highlighter-rouge');
+    
+    codeBlocks.forEach(function(block) {
+        // Create copy button
+        const copyButton = document.createElement('button');
+        copyButton.className = 'copy-button';
+        copyButton.innerHTML = '📋';
+        copyButton.setAttribute('title', 'Kopier kode til utklippstavle');
+        copyButton.setAttribute('aria-label', 'Kopier');
+        
+        // Add click event
+        copyButton.addEventListener('click', function() {
+            // Find the code content
+            const codeElement = block.querySelector('pre code');
+            if (codeElement) {
+                // Get text content without HTML
+                const codeText = codeElement.textContent || codeElement.innerText;
+                
+                // Copy to clipboard using modern API
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(codeText).then(function() {
+                        showCopySuccess(copyButton);
+                    }).catch(function() {
+                        fallbackCopyToClipboard(codeText, copyButton);
+                    });
+                } else {
+                    fallbackCopyToClipboard(codeText, copyButton);
+                }
+            }
+        });
+        
+        // Add button to the code block container
+        block.appendChild(copyButton);
+    });
+    
+    function showCopySuccess(button) {
+        const originalIcon = button.innerHTML;
+        button.innerHTML = '✅';
+        button.classList.add('copied');
+        
+        setTimeout(function() {
+            button.innerHTML = originalIcon;
+            button.classList.remove('copied');
+        }, 2000);
+    }
+    
+    function fallbackCopyToClipboard(text, button) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            document.execCommand('copy');
+            showCopySuccess(button);
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+            button.innerHTML = '❌';
+            setTimeout(function() {
+                button.innerHTML = '📋';
+            }, 2000);
+        }
+        
+        document.body.removeChild(textArea);
+    }
+});
+</script>
