@@ -331,7 +331,7 @@ i verste fall et forhold til versjoner og da eksploderer hodet mitt.
 - Krever at du har node/npm installert
   - Mac: `brew install npm`
 
-- Installere meta på maskinen din ( trenger node:brew install npm )
+- Installere meta på maskinen din
   - `npm install -g meta`
 
 Note:
