@@ -349,10 +349,12 @@ Note:
 --
 ## 🛠️ Workshop-oppgaver 👷
 
-Nå skal vi gjøre den første oppgavene i workshopen
+Nå skal vi gjøre den første oppgaven i workshopen
 
-1. https://kjetiljd.github.io/meta-repo-workshop/
-2. **Gå til workshop**
+1. [bit.ly/metarepo](https://bit.ly/metarepo)  
+2. Klikk på "**Gå til workshop**"-knappen
+
+<small>Dette leder deg til: https://kjetiljd.github.io/meta-repo-workshop/workshop</small>
 
 --
 
@@ -472,7 +474,7 @@ Note:
 
 **Hands-on tid!**
 
-- [**Oppsett og grunnleggende struktur**](../workshop/02-setup/) - Klon demo-repo og test grunnleggende kommandoer
+- [**Oppsett og grunnleggende struktur**](../workshop/02-setup/) 
 
 Note:
 - Nå skal dere få prøve meta selv
@@ -532,12 +534,18 @@ I dag brukes det til å automatisere alle typer oppgaver - ikke bare bygging.
 
 --
 
-## Makefile syntax
+## Makefile
+
+Syntax:
 
 ```makefile
 target: dependencies
 	command (må ha tab, ikke spaces!)
+```
 
+Eksempel:
+
+```makefile
 build: clean
 	gcc -o program main.c
 	
@@ -570,14 +578,6 @@ make build
 make clean build
 ```
 
-**Eksempel:**
-```bash
-$ make help
-help                 : Show available commands
-build               : Build Docker image  
-serve               : Start Jekyll server
-```
-
 Note:
 make uten argumenter kjører første target i Makefile.
 Du kan spesifisere hvilket target du vil kjøre.
@@ -599,7 +599,7 @@ help:
 
 **Hvorfor .PHONY?**
 - Forteller make at dette ikke er en fil
-- Bare en kommando som skal kjøres
+- ... men bare en kommando som skal kjøres
 - Unngår konflikter med filer som har samme navn
 
 Note:
@@ -826,20 +826,6 @@ Note:
 - Integrer Docker kommandoer med Makefile
 - Få oversikt over alle service-URLs
 
---
-
-## 🎯 Demo 6: Analyse på tvers av repositories
-
-**eessi-pensjon** - Spring Boot versjoner og cloc kodestatistikk
-
-Hvordan få oversikt over hele økosystemet?
-
-Note:
-- Vis hvordan finne Spring Boot versjoner på tvers av alle repos
-- Kjør cloc analyse på hele meta-repoet
-- Demonstrer tertial-rapport og kodestatistikk
-- Forklar hvordan dette hjelper med teknisk gjeld og oppgraderinger
-
 ---
 
 # Del 6: IDE-integrasjon
@@ -940,6 +926,7 @@ Note:
 - Utforsk unified workspace og cross-repo navigation
 - Opplev global search på tvers av alle repos
 
+
 ---
 
 # Del 7: Templates på tvers av repositories
@@ -1019,7 +1006,7 @@ Dette gir fleksibilitet mens konsistensen bevares.
 
 --
 
-## 🎯 Demo 6: Template-system
+## 🎯 Demo 7: Template-system
 
 **Java version oppgradering fra 21.0.4 til 21.0.8**
 
@@ -1065,19 +1052,23 @@ Template-systemer kan standardisere alt fra build-konfigurasjoner til dokumentas
 Automatisering gjør at oppdateringer kan kjøres på schedule.
 Perfekt for security patches og dependency management.
 
----
-
-# Del 8: Cross-repo koordinering: Mer enn bare kode
-
 --
 
-## 🛠️ Hands-on: Cross-repo
+## 🎯 Demo 7: Analyse på tvers av repositories
 
-La oss prøve noe selv:
+**eessi-pensjon** - Spring Boot versjoner og cloc kodestatistikk
 
-➡️ [**Cross-repo endring**](../workshop/08-cross-repo/)
+Hvordan få oversikt over hele økosystemet?
 
-Endringer på tvers av repositories – med git.
+Note:
+- Vis hvordan finne Spring Boot versjoner på tvers av alle repos
+- Kjør cloc analyse på hele meta-repoet
+- Demonstrer tertial-rapport og kodestatistikk
+- Forklar hvordan dette hjelper med teknisk gjeld og oppgraderinger
+
+---
+
+# Del 8: Cross-repo koordinering
 
 --
 
@@ -1109,6 +1100,16 @@ Endringer på tvers av repositories – med git.
 Note:
 Dette er bare noen eksempler på hva som er mulig med meta-repo koordinering.
 Meta-mønsteret åpner for mange kreative løsninger på repetitive oppgaver.
+
+--
+
+## 🛠️ Hands-on: Cross-repo
+
+La oss prøve noe selv:
+
+➡️ [**Cross-repo endring**](../workshop/08-cross-repo/)
+
+Endringer på tvers av repositories – med git.
 
 --
 

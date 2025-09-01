@@ -143,23 +143,28 @@ urls: ## Vis service URLs
 
 Nå kan du teste make-kommandoene:
 
+Stopp servicene først
 ```bash
-# Stopp servicene først
 make down
-
-# Start på nytt med make
+```
+Start på nytt med make
+```bash
 make up
-
-# Se status
+```
+Se status
+```bash
 make status
-
-# Se URLs
+```
+Se URLs
+```bash
 make urls
-
-# Følg logs (Ctrl+C for å stoppe)
+```
+Følg logs (Ctrl+C for å stoppe)
+```bash
 make logs
-
-# Restart services
+```
+Restart services
+```bash
 make restart
 ```
 
@@ -172,7 +177,7 @@ git add docker-compose.yml Makefile
 git commit -m"Legg til Docker Compose oppsett og make-kommandoer"
 ```
 
-## 🎯 Ekstra-oppgave: Health checks for bedre oppstart
+## 🎯 Ekstra-oppgaver: Health checks for bedre oppstart
 
 Backend'en bruker noen sekunder mer enn frontenden på å bli klar, og det kan føre til at frontend ikke virker i starten.
 
@@ -245,27 +250,34 @@ make rebuild
 ### Vanlige problemer:
 
 **Port conflicts**: 
+
+Se hvilke porter som er i bruk
 ```bash
-# Se hvilke porter som er i bruk
 lsof -i :8081 # På Linux/Mac
-# Endre porter i docker-compose.yml hvis nødvendig
 ```
+Endre porter i docker-compose.yml hvis nødvendig
 
 **Build feil**:
-```bash
-# Bygg på nytt uten cache
-docker-compose build --no-cache
 
-# Se detaljert logg under bygging
+Bygg på nytt uten cache
+
+```bash
+docker-compose build --no-cache
+```
+Se detaljert logg under bygging
+```bash
 docker-compose up --build
 ```
 
 **Service kan ikke starte**:
-```bash
-# Se detaljerte feilmeldinger
-docker-compose logs meta-todo-backend
 
-# Debug ved å kjøre service manuelt
+Se detaljerte feilmeldinger
+
+```bash
+docker-compose logs meta-todo-backend
+```
+Debug ved å kjøre service manuelt
+```bash
 docker run -it meta-todo_meta-todo-backend:latest sh
 ```
 

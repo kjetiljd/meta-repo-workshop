@@ -14,12 +14,17 @@ som dere kan benytte (se lenger ned i siden her). Linux-nerds - dere er på egen
 
 ## 🛠 Steg-for-steg
 
+*NB! Det er en fin knapp ute til høyre på hver kodeblokk som gjør det lett å kopiere teksten.*
+
 ### Steg 1: NPM og node
 
 Test at du har node og npm installert:
 
 ```bash
 node --version
+```
+
+```bash
 npm --version
 ```
 
@@ -52,7 +57,7 @@ meta --version
 #### Proxy-problemer
 
 Dersom du får en feilmelding som dette:
-```
+```plaintext
 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
@@ -61,7 +66,7 @@ npm error errno FETCH_ERROR
 npm error request to https://codeload.github.com/mateodelnorte/commander.js/tar.gz/9060bf880b791cf39245d425f1e8a41a55616781 failed, reason: Socket closed
 npm error A complete log of this run can be found in: /Users/t992958/.npm/_logs/2025-09-01T11_28_49_761Z-debug-0.log
 ```
-Så har du problemer med proxy-innstillinger - skru av proxy for npm: 
+... så har du problemer med proxy-innstillinger og må skru av proxy for npm: 
 
 ```bash
 npm config set noproxy "registry.npmjs.org,codeload.github.com,github.com"
@@ -95,7 +100,7 @@ Error: spawn EINVAL
 
 Workaround - rapportert av en bruker som fikk det til å fungere:
 
-Redigerte line 563 og 565 i denne filen: C:\Users\<username>\AppData\Roaming\npm\node_modules\meta\node_modules\commander\index.js
+> Redigerte line 563 og 565 i denne filen: C:\Users\<username>\AppData\Roaming\npm\node_modules\meta\node_modules\commander\index.js
 
 Fra:
 ```javascript
@@ -110,12 +115,11 @@ proc = spawn(process.argv[0], args, { stdio: 'inherit', shell: true, customFds: 
 } else {
 proc = spawn(bin, args, { stdio: 'inherit', shell: true, customFds: [0, 1, 2] });
 ```
-
+(Forskjellen er `shell: true` som er lagt til i begge `spawn`-kallene.)
 
 ### Alternativt: Docker
 
-Dersom du ikke vil eller får installert verktøyene lokalt,
-kan du bruke Docker:
+Dersom du ikke vil eller får installert verktøyene lokalt, kan du bruke Docker:
 
 Windows (Powershell):
 ```shell
@@ -129,6 +133,7 @@ docker run --rm -it -v "$PWD:/work" -w /work ghcr.io/kjetiljd/meta-repo-workshop
 
 Nå er du i en bash-terminal med alt du trenger installert.
 `/work` er mappet til mappen du står når du kjører kommandoen.
+
 
 Kjør `exit` nå for å gå ut av terminalen i docker-containeren:
 ```shell

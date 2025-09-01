@@ -43,31 +43,40 @@ cd eessi-pensjon
 ```
 
 ### Demo-punkter
-1. **Vis meta git status**
-   ```bash
-   meta git status
-   ```
-   - "Dette viser git status for ALLE repositories på en gang"
-   - Påpek forskjellige tilstander på tvers av repos
 
-2. **Vis meta exec**
-   ```bash
-   meta exec "pwd"
-   ```
-   - "Kjører samme kommando i hvert repository"
-   - "Se hvordan den bytter mellom mapper og viser hvor den er"
-   
-   Eller som alternativ:
-   ```bash
-   meta exec "git branch --show-current"
-   ```
-   - "Viser hvilken branch hvert repo er på - nyttig for å se status"
+1. **Vis meta exec**
+
+```bash
+meta exec pwd
+```
+- "Kjører samme kommando i hvert repository"
+- "Se hvordan den bytter mellom mapper og viser hvor den er"
+- Den kjører også selve meta-repoet
+
+Eller :
+
+```bash
+meta exec "git branch --show-current"
+```
+- Legg merke til at jeg bruker dobbeltfnutter når det er en kommando med mellomrom i seg
+- "Viser hvilken branch hvert repo er på - nyttig for å se status"
+
+2. **Vis meta git status**
+
+```bash
+meta git status
+```
+
+- "Dette viser git status for ALLE repositories på en gang"
+- Påpek forskjellige tilstander på tvers av repos
 
 3. **Vis filtrering (hvis tilgjengelig)**
-   ```bash
-   meta exec "git log --oneline -1" --exclude eessi-pensjon 
-   ```
-   - "Du kan ekskludere spesifikke repositories fra kommandoer"
+
+```bash
+meta exec "git log --oneline -1" --exclude eessi-pensjon
+```
+- "Du kan ekskludere spesifikke repo fra kommandoer"
+
 
 ### Nøkkelbeskjeder
 - "Én kommando påvirker flere repositories"
@@ -76,6 +85,7 @@ cd eessi-pensjon
 ---
 
 ## Demo 3: Automatisering i Praksis
+
 **Slide:** Under make/automatisering-seksjonen (Del 4)
 
 ### Vis Eksisterende Automatisering
@@ -99,7 +109,7 @@ cd eessi-pensjon
    # Først - se nåværende versjon
    meta exec "./gradlew --version | grep Gradle"
    
-   # Se automaseringen
+   # Se automatiseringen
    grep -A 2 "upgrade-gradle:" Makefile
    cat script/upgrade_gradle.sh
    
@@ -218,66 +228,7 @@ cd eessi-pensjon-fagmodul && git log --oneline -- src/main/kotlin/no/nav/eessi/p
 
 ---
 
-## Demo 6: Analyse på tvers av Repositories
-**Slide:** Under avanserte emner eller oppsummering
-
-### Analytiske Kommandoer
-1. **Spring Boot versjoner**
-   ```bash
-   meta exec "./gradlew dependencies | grep 'spring-boot:' | head -1" --exclude eessi-pensjon --parallel
-   ```
-   - "Se her - de fleste er på Spring Boot 3.5.5, men noen er fortsatt på 3.5.4"
-   - "Dette ville tatt lang tid å sjekke manuelt i hvert repo"
-   - "Nå ser vi umiddelbart hvor det trengs oppdateringer"
-   - "Legg merke til at noen repos ikke har gradlew (UI og meta-analyse) - det er ok"
-
-2. **Kodestatistikk**
-   ```bash
-   # Først - vis for ett repo
-   cd eessi-pensjon-fagmodul
-   cloc . --vcs=git
-   cloc . --vcs=git --exclude-lang=JSON
-   
-   # Så - vis for alle repos
-   cd ..
-   meta exec "cloc --vcs=git --exclude-lang=JSON --quiet . 2>/dev/null" --exclude eessi-pensjon
-   ```
-   - "Først ser vi ett repo, så alle på en gang"
-   - "Med --vcs=git får vi bare koden som er i git, ikke node_modules osv"
-   - "Se hvordan vi får total oversikt over hele systemet"
-
-3. **Avansert analyse med egen verktøy**
-   ```bash
-   cd ep-meta-analyse
-   ./changes.py
-   cd ..
-   ```
-   - "Dette teamet har laget sitt eget analyseverktøy!"
-   - "Analyserer endringer på tvers av alle repositories siste uke"
-   - "Kategoriserer etter risiko, type endring (features, bugfix, refactoring)"
-   - "For å få kategoriseringen bruker teamet en git-notasjon som heter Arlo's Commit Notation"
-   - "Dette er interessant bruk av meta-repo"
-   - "Det er nærliggende å tenke at dette er et bra underlag for release notes også"
-
-4. **Tertial-rapporter**
-   ```bash
-   ls -la ep-meta-analyse/archive/
-   # Åpne den siste rapporten
-   open ep-meta-analyse/archive/2025T2_2025-08-29_Utviklingsstatistikk.pdf
-   ```
-   - "Teamet har tatt det enda lenger"
-   - "De genererer rapporter hvert tertial om utviklingen i alle systemene"  
-   - "Dette gir ledelsen innsikt i hvor mye som skjer på tvers av hele økosystemet"
-   - "Her er rapporten fra 2025 T2: https://github.com/navikt/eessi-pensjon/blob/main/ep-meta-analyse/archive/2025T2_2025-08-29_Utviklingsstatistikk.pdf"
-
-### Nøkkelbeskjeder
-- "Meta-repos gjør systemomfattende analyse mulig"
-- "Få innsikt på tvers av hele økosystemet ditt"
-- "Perfekt for teknisk gjeldshåndtering"
-
----
-
-## Demo 7: Template-system - Java version oppgradering
+## Demo 6: Template-system - Java version oppgradering
 
 **Når:** Etter templates slides
 **Varighet:** 4-5 minutter  
@@ -366,6 +317,64 @@ echo "Så mange repos fikk oppdatert Java-versjon med én kommando!"
 - "Template-systemet sikrer at alle repos holder seg konsistente"
 
 ---
+
+## Demo 7: Analyse på tvers av Repositories
+**Slide:** Under avanserte emner eller oppsummering
+
+### Analytiske Kommandoer
+1. **Spring Boot versjoner**
+   ```bash
+   meta exec "./gradlew dependencies | grep 'spring-boot:' | head -1" --exclude eessi-pensjon --parallel
+   ```
+    - "Se her - de fleste er på Spring Boot 3.5.5, men noen er fortsatt på 3.5.4"
+    - "Dette ville tatt lang tid å sjekke manuelt i hvert repo"
+    - "Nå ser vi umiddelbart hvor det trengs oppdateringer"
+    - "Legg merke til at noen repos ikke har gradlew (UI og meta-analyse) - det er ok"
+
+2. **Kodestatistikk**
+   ```bash
+   # Først - vis for ett repo
+   cd eessi-pensjon-fagmodul
+   cloc . --vcs=git
+   cloc . --vcs=git --exclude-lang=JSON
+   
+   # Så - vis for alle repos
+   cd ..
+   meta exec "cloc --vcs=git --exclude-lang=JSON --quiet . 2>/dev/null" --exclude eessi-pensjon
+   ```
+    - "Først ser vi ett repo, så alle på en gang"
+    - "Med --vcs=git får vi bare koden som er i git, ikke node_modules osv"
+    - "Se hvordan vi får total oversikt over hele systemet"
+
+3. **Avansert analyse med egen verktøy**
+   ```bash
+   cd ep-meta-analyse
+   ./changes.py
+   cd ..
+   ```
+    - "Dette teamet har laget sitt eget analyseverktøy!"
+    - "Analyserer endringer på tvers av alle repositories siste uke"
+    - "Kategoriserer etter risiko, type endring (features, bugfix, refactoring)"
+    - "For å få kategoriseringen bruker teamet en git-notasjon som heter Arlo's Commit Notation"
+    - "Dette er interessant bruk av meta-repo"
+    - "Det er nærliggende å tenke at dette er et bra underlag for release notes også"
+
+4. **Tertial-rapporter**
+   ```bash
+   ls -la ep-meta-analyse/archive/
+   # Åpne den siste rapporten
+   open ep-meta-analyse/archive/2025T2_2025-08-29_Utviklingsstatistikk.pdf
+   ```
+    - "Teamet har tatt det enda lenger"
+    - "De genererer rapporter hvert tertial om utviklingen i alle systemene"
+    - "Dette gir ledelsen innsikt i hvor mye som skjer på tvers av hele økosystemet"
+    - "Her er rapporten fra 2025 T2: https://github.com/navikt/eessi-pensjon/blob/main/ep-meta-analyse/archive/2025T2_2025-08-29_Utviklingsstatistikk.pdf"
+
+### Nøkkelbeskjeder
+- "Meta-repos gjør systemomfattende analyse mulig"
+- "Få innsikt på tvers av hele økosystemet ditt"
+- "Perfekt for teknisk gjeldshåndtering"
+
 
 ## Generelle Demo-tips
 

@@ -49,7 +49,7 @@ make status
 
 ### Steg 2: Legg til .PHONY
 
-Legg til `.PHONY` øverst i filen:
+Legg til `.PHONY` i filen:
 
 ```makefile
 .PHONY: help status pull
@@ -79,7 +79,7 @@ Erstatt den manuelle `.PHONY`-listen med denne smarte løsningen:
 
 ### Steg 4: Automatisk help med dokumentasjon
 
-Oppgrader til et help-system som bruker `##` kommentarer:
+Oppgrader til et help-system som bruker `##` kommentarer ved å bytte ut med linjene i `Makefile`:
 
 ```makefile
 help: ## Vis denne hjelpeteksten
@@ -112,10 +112,9 @@ Prøv `make help` igjen for å se at "help" ikke lenger vises.
 
 ### Steg 5: Legg til meta-repo kommandoer
 
-Utvid `Makefile` med de viktigste meta-repo operasjonene:
+Legg til dette på slutten av `Makefile` med de viktigste meta-repo operasjonene:
 
 ```makefile
-
 root_dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 meta_project := $(notdir $(patsubst %/,%,$(root_dir)))
 
@@ -135,15 +134,22 @@ Prøv ut de forskjellige kommandoene:
 
 ```bash
 make help
-
+```
+```bash
 make meta-update
-
+```
+```bash
 make pull
-
+```
+```bash
 make list-local-commits
-
+```
+Denne kan nok hende at ikke virker hos deg - krever at du har det som trengs for å bygge Java og Node.js prosjektene.
+```bash
 make build
+```
 
+```bash
 make test
 ```
 
@@ -157,7 +163,7 @@ git commit -m"Legg til Makefile for meta-repo automatisering"
 ```
 
 
-## 🎯 Ekstra-oppgaver
+## 🎯 Ekstra-oppgaver for de med tid
 
 Legg til disse kommandoene i din `Makefile`:
 

@@ -33,9 +33,10 @@ Vi har allerede sett `meta git status`. La oss prøve noen flere nyttige git-kom
 ```shell
 meta git log
 ```
-Hm... det fungerer ikke, og ergerlig nok får vi ingen tilbakemelding på at kommandoen ikke finnes.
+Hm... det fungerer ikke, og ergerlig nok får vi *ingen tilbakemelding på at kommandoen ikke finnes*.
 
-I stedet må vi gjøre slik (enklere uten paging)
+I stedet må vi gjøre slik (enklere uten paging):
+
 ```shell
 meta exec "git --no-pager log"
 ```
@@ -57,10 +58,12 @@ Ofte vil du utelate selve meta-repoet. Bruk filtrering med `--exclude`:
 
 ```shell
 meta exec "git log --oneline -1" --exclude "$(basename $PWD)" 
-# "$(basename $PWD)" er det samme som: todo-meta
-# ... men fungerer uansett hva mappen heter (inkludert i Docker-containeren der mappen heter /work)
 ```
 Dette kjører kommandoen kun i sub-repoene, ikke i meta-repoet.
+
+`$(basename $PWD)` er det samme som: todo-meta
+ ... men fungerer uansett hva meta-repo-mappen heter (inkludert i Docker-containeren der mappen heter /work)
+
 
 Du kan ekskludere flere repoer ved å liste dem med komma:
 
@@ -79,12 +82,17 @@ For å bli fortere ferdig legg på `--parallel`:
 ```shell
 meta exec 'echo start ; sleep $((RANDOM % 5 + 1)) ; echo end' --parallel
 ```
-Legg merke til at når du bruker `--parallel` så får du ingen output før kjøringen i sub-repoet er fullført.
-Om du kjører flere ganger vil du se at rekkefølgen på output kan variere når du kjører parallelt, ettersom responsen kommer når hver enkelt er ferdig.
+Legg merke til at når du bruker `--parallel` så får du ingen output før kjøringen i sub-repoet er ferdig.
+
+Om du kjører flere ganger vil du se at rekkefølgen på output kan variere når du kjører parallelt, ettersom responsen kommer etterhvert som alt er gjort i hvert enkelt sub-repo.
+
+### Forstå variabler og anførselstegn (fnutter) 
+
+__Denne seksjonen kan variere etter hvilket shell du bruker, har testet med bash og zsh.__
 
 En annen ting å merke seg er bruken av enkeltfnutter (`'`) rundt hele kommandoen. 
 
-Her legger vi på en echo for å vise hvilket tall som genereres:
+Her legger vi på en echo for å vise hvilket tall som genereresi stedet for å vente:
 
 ```shell
 meta exec 'echo start ; echo sleep $((RANDOM % 5 + 1)) ; echo end' --parallel
@@ -98,16 +106,16 @@ meta exec "echo start ; echo sleep $((RANDOM % 5 + 1)) ; echo end" --parallel
 Denne gangen er alle verdiene like, fordi `$((RANDOM % 5 + 1))` blir evaluert av shellet ditt (f.eks bash/zsh) før `meta exec` kjøres. 
 Dermed får alle repoene samme tilfeldige tall.
 
-Prøv nå å scapee `$`-tegnet med `\`, fortsatt med dobbelfnutter:
+Prøv nå å escape `$`-tegnet med `\`, fortsatt med dobbelfnutter:
 ```shell
 meta exec "echo start ; echo sleep \$((RANDOM % 5 + 1)) ; echo end" --parallel
 ```
-
+Nå virker det igjen som forventet, og hver repo får sitt eget tilfeldige tall.
 
 ### Steg 5: Kodestatistikk med cloc
 
 <details markdown="1">
-  <summary>Installasjon av cloc – om nødvendig</summary>
+  <summary>Installasjon av cloc – om nødvendig!</summary>
 
 [cloc](https://github.com/AlDanial/cloc) – "Count Lines of Code" – er et populært verktøy for å telle linjer med kode i et prosjekt.
 
@@ -148,11 +156,10 @@ sudo apt install cloc
 Bruk `cloc` for å få oversikt over kodebasen:
 
 ```shell
-meta exec "cloc . --vcs=git"
+meta exec "cloc . --vcs=git" --exclude "$(basename $PWD)"
 ```
-
 Dette gir deg statistikk over antall linjer kode per språk i hvert repo. 
-Vi bruker `--vcs=git` for å telle kun filer som er sporet av Git.
+Vi bruker `--vcs=git` for å telle kun filer som er sporet av Git (og slippe slikt som `node_modules`).
 
 ### Steg 6: Pipeline og betinget kjøring
 
@@ -188,7 +195,7 @@ meta exec 'echo "--- Start ---" && git status --porcelain ; echo "--- End ---"' 
 ```
 Legg merke til enkelt-fnutter (`'`) rundt hele kommandoen, og doble fnutter (`"`) inni der det trengs.
 
-## 🎯 Ekstra-oppgaver
+## 🎯 Ekstra-oppgaver (disse kan du komme tilbake til siden)
 
 Løs disse oppgavene med `meta exec` - og kommandolinje-verktøy:
 

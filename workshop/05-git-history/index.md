@@ -14,11 +14,13 @@ Vi skal lage et make target som finner de mest endrede filene på tvers av alle 
 
 Først, la oss se hvordan vi kan få ut filendringer fra git:
 
+Se hvilke filer som er endret i hver commit
 ```bash
-# Se hvilke filer som er endret i hver commit
 git log --name-only --oneline -10
+```
 
-# Telle filendringer (test i ett repo først)
+Telle filendringer (test i ett repo først):
+```bash
 git log --name-only --pretty=format: | grep -v '^$' | sort | uniq -c | sort -rn | head -10
 ```
 
@@ -26,18 +28,20 @@ git log --name-only --pretty=format: | grep -v '^$' | sort | uniq -c | sort -rn 
 
 Vi lager et make target som kan kjøres fra hovedmappen:
 
+Legg til make target i Makefile: (kjør denne kommandoen så legges det til i Makefile)
 ```bash
-# Legg til make target i meta-repo Makefile
 printf '\nhotspots: ## Show most frequently changed files across all repos\n\t@meta exec "git log --name-only --pretty=format: | grep -Ev \"^$$\" | sort | uniq -c | sort -rn | head -5"\n' >> Makefile
+```
 
-# Verifiser at det ble lagt til
+Verifiser at det ble lagt til
+```bash
 tail -5 Makefile
 ```
 
 ### Steg 3: Test det nye make target
 
+Kjør hotspots-analysen
 ```bash
-# Kjør hotspots-analysen
 make hotspots
 
 ```

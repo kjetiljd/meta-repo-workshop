@@ -28,8 +28,6 @@ La oss starte med å klone vårt tomme repo:
 ```shell
 git clone https://github.com/kjetiljd/todo-meta.git
 ```
-(Repoet er ikke _helt_ tomt, det finnes noen branch'er vi kan bruke hvis ting går galt.)
-
 
 ### Steg 2: Opprette meta-repo
 
@@ -39,7 +37,22 @@ Gå inn i prosjekt-mappen:
 cd todo-meta
 ```
 
-Dersom du velger å bruke Docker er det nå du starter Docker-containeren og jobber videre inne i den:
+Det kan se tomt ut her:
+
+```shell
+ls 
+```
+
+Men det er et git-repo:
+
+```shell
+ls -al 
+```
+På Mac/Linux skjules filer som starter med `.` så vi trenger `-a` for å vise at det har dukket opp en `.meta`-fil.
+
+Repoet er ikke _helt_ tomt, det finnes noen branch'er vi kan bruke hvis ting går galt.
+
+*Dersom du velger å bruke Docker* er det nå du starter Docker-containeren og jobber videre inne i den:
 <details markdown="1">
   <summary>Ekspander for Docker-container-instruksjon</summary>
 <hr/>
@@ -57,7 +70,7 @@ docker run --rm -it `
   ghcr.io/kjetiljd/meta-repo-workshop-tools:latest bash
 ```
 
-Mac/Linux:
+Mac/Linux/...:
 ```shell
 docker run --rm -it \
   -v "$PWD:/work" -w /work \
@@ -66,6 +79,9 @@ docker run --rm -it \
   ghcr.io/kjetiljd/meta-repo-workshop-tools:latest bash
 
 ```
+
+Merk at inne i Docker-containeren heter mappen `/work`, ikke `todo-meta`.
+
 <hr/>
 </details>
 
@@ -78,9 +94,9 @@ meta init
 Nå ble det opprettet en `.meta`-fil.
 
 ```shell
-ls -al # eller tilsvarende kommando for å liste *alle* filer
+ls -al
 ```
-På Mac/Linux skjules filer som starter med `.` så vi trenger `-a` for å vise at det har dukket opp en `.meta`-fil. 
+La oss titte på den.
 
 ```shell
 cat .meta # eller tilsvarende kommando for å se innhold i filer
@@ -101,11 +117,17 @@ Begynn med å forstå hvordan `meta`-kommandoen fungerer.
 
 ```shell
 meta                      # Dette viser deg standard hjelpe-teksten
-meta help project         # Her får du hjelp med `project`
-meta project help import  # Her får du hjelp med `project`
 ```
 
-Kommandoen er på formen: `meta project import [folder] [git-url]`
+```shell
+meta help project         # Her får du hjelp med `project`
+```
+
+```shell
+meta project help import  # Her får du hjelp med `project import`
+```
+
+Kommandoen vi trenger er på formen: `meta project import [folder] [git-url]`
 
 Legg til det første repoet, som har git-url: https://github.com/kjetiljd/todo-frontend.git
 
@@ -135,17 +157,21 @@ Sjekk `.meta` og `.gitignore` om de ser ut som forventet:
 
 ```shell
 cat .meta
+```
+
+```shell
 cat .gitignore
 ```
 
 La oss legge til det siste repoet, men gjøre en liten vri
 
-Denne gangen gjør vi en vanlig git clone først:
+Denne gangen gjør vi *en vanlig git clone* først:
 
 ```shell
 git clone https://github.com/kjetiljd/todo-sorter.git
 ```
-Siden vi allerede har klonet repoet, kan vi bruke `meta project import` uten url denne gangen:
+
+Siden vi allerede har klonet repoet, kan vi bruke `meta project import` *uten url* denne gangen:
 ```shell
 meta project import todo-sorter
 ```
@@ -157,7 +183,7 @@ cat .meta
 cat .gitignore
 ```
 
-(Dersom vi ikke har noe repo i det hele tatt, men skal lage et, kunne vi brukt `meta project create [folder] [url]`.)
+(Dersom vi ikke hadde noe repo i det hele tatt, men skal lage et nytt, kunne vi brukt `meta project create [folder] [url]`.)
 
 
 ## Steg 4: Sjekk om vi er oppdatert
