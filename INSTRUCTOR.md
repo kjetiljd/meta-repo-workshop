@@ -27,24 +27,27 @@
    - **Cross-repo Praksis (08-cross-repo/)**: Lag "recent-activity" make target, koordinert commit workflow
    - Flere eksempler: dependency management, sikkerhet, konfigurasjonsendringer, release koordinering
 
-## ⏱ FAKTISK TIDSPLAN (basert på vurdering av innhold)
 
-| Tid | Varighet | Tema | Type | Notater |
-|-----|----------|------|------|---------|
-| 00:00 | 5 min | **Del 1: Introduksjon** | Slides | Velkommen, problemstilling |
-| 00:05 | 10 min | **Del 2: Meta-repo konsept + 01-prereqs** | Slides + Hands-on | Motivasjon + Node/npm install |
-| 00:15 | 5 min | **Del 3: Meta-verktøyet** | Slides + Demo 1 | .meta-fil, kommandoer, eessi-pensjon demo |
-| 00:20 | 15 min | **02-setup** | Hands-on + Demo 2 | Klon, meta init, eessi praksis |
-| 00:35 | 15 min | **03-commands** | Hands-on | meta exec, filtrering, cloc (steg 5) |
-| 00:50 | 5 min | **Del 4: Make introduksjon** | Slides | Makefile syntax, .PHONY osv |
-| 00:55 | 15 min | **04-automation** | Hands-on + Demo 3 | Makefile, make stats, eessi demo |
-| 01:10 | 15 min | **05-git-history** | Hands-on + Demo 4 | Hotspots, git log analyse |
-| 01:25 | 3 min | **Del 5: Docker intro** | Slides | Docker Compose konsepter |
-| 01:28 | 3 min | **Del 6: IDE intro** | Slides | Gradle Composite Build |
-| 01:31 | 4 min | **Del 7: Templates** | Slides + Demo 6 | Template-system, Java version bump |
-| 01:35 | 15 min | **Del 8: Cross-repo koordinering** | Slides + **08-cross-repo** | Eksempler + hands-on |
-| 01:50 | 10 min | **Del 9: Flere muligheter + avslutning** | Slides | Dependency mgmt, sikkerhet osv |
-| **02:00** | | **FERDIG** | | |
+## ⏱ FAKTISK TIDSPLAN (basert på vurdering av innhold, og gjennomkjøring)
+
+| Tid       | Varighet | Tema                                      | Type                       | Notater |
+|-----------|----------|-------------------------------------------|----------------------------|---------|
+| 00:00     | 14 min   | **Del 1: Introduksjon**                   | Slides                     | Velkommen, problemstilling |
+| 00:14     | 10 min   | **Del 2: Meta-repo konsept + 01-prereqs** | Slides + Hands-on          | Motivasjon + Node/npm install |
+| 00:25     | 7 min    | **Del 3: Meta-verktøyet**                 | Slides + Demo 1            | .meta-fil, kommandoer, eessi-pensjon demo |
+| 00:32     | 12 min   | **02-setup**                              | Hands-on + Demo 2          | Klon, meta init, eessi praksis |
+| 00:44     | 12 min   | **03-commands**                           | Hands-on                   | meta exec, filtrering, cloc (steg 5) |
+| 00:56     | 5 min    | **Del 4: Make introduksjon**              | Slides                     | Makefile syntax, .PHONY osv |
+| 01:00     | 20 min   | **04-automation**                         | Hands-on + Demo 3          | Makefile, make stats, eessi demo |
+| 01:20     | 12 min   | **05-git-history**                        | Hands-on + Demo 4          | Hotspots, git log analyse |
+| 01:32     | 10 min   | **Del 5: Docker intro**                   | Slides + Hands-on          | Docker Compose konsepter |
+| 01:42     | 10 min   | **Demo 5: Analyse på tvers**              | Demo 5                     | Spring Boot versjoner, cloc statistikk |
+| 01:52     | 3 min    | **Del 6: IDE intro**                      | Slides                     | Gradle Composite Build |
+| 01:55     | 8 min    | **Demo 6: IDE integrasjon**               | Demo 6                     | Enhetlig IntelliJ workspace |
+| 02:03     | 5 min    | **Hands-on: IDE integrasjon**             | Oppgave 7                  | Enhetlig IntelliJ workspace |
+| 02:08     | 8 min    | **Del 7: Templates**                      | Slides + Demo 7            | Template-system, Java version bump |
+| 02:16     | 10 min   | **Del 8: Cross-repo koordinering**        | Slides + **08-cross-repo** | Eksempler + hands-on |
+| **02:26** |          | **FERDIG**                                |                            | |
 
 **Prioritering:**
 - **Kjerneinnhold**: Del 1-4 + workshop 01-04 (grunnleggende meta + make)
