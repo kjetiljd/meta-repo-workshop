@@ -325,7 +325,7 @@ i verste fall et forhold til versjoner og da eksploderer hodet mitt.
 
 --
 
-## `meta` by Matt Williams
+## `meta` by Matt Walters
 
 - https://github.com/mateodelnorte/meta
 
@@ -336,7 +336,7 @@ i verste fall et forhold til versjoner og da eksploderer hodet mitt.
   - `npm install -g meta`
 
 Note:
-- Laget av en som heter Matt Williams
+- Laget av en som heter Matt Walters
 - Finnes på github
 - Forutsetter at du har node/npm installert
 - NPM-pakke, ikke eget system
