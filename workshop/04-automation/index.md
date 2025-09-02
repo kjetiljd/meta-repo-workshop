@@ -136,9 +136,6 @@ Prøv ut de forskjellige kommandoene:
 make help
 ```
 ```bash
-make meta-update
-```
-```bash
 make pull
 ```
 ```bash

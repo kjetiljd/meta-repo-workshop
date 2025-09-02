@@ -166,6 +166,7 @@ Note:
 - ... ofte handler det om å lage enda et repo, for eksempel et med felles deployscript.
 - Men det finnes ikke én god løsning på alt dette.
 - Kanskje med unntak av mono-repo, men det har ulemper som vi var innom.
+- Det siste punktet om dokumentasjon - meta-repo gir et naturlig sted for felles dokumentasjon som gjelder på tvers av alle repositories
 - 
 
 --
@@ -281,6 +282,7 @@ KLIKK!
 
 - Clone og pull'e alle repo'ene
 - Et sted å putte ting som er nyttige på tvers<!-- .element: class="fragment" data-fragment-index="2" -->
+- Felles dokumentasjon som gjelder alle repo<!-- .element: class="fragment" data-fragment-index="3" -->
 
 Note:
 
@@ -288,6 +290,8 @@ Note:
 - Det i seg selv er verdifullt, en ny utvikler kan komme raskt i gang
 - KLIKK!
 - Det er også et sted å putte ting som er nyttige på tvers.
+- KLIKK!
+- Felles dokumentasjon - arkitekturbeslutninger, onboarding-guides, API-kontrakter som gjelder flere repo
 - Det at du har en slags kontroll over hvor repoene dine er
 - ... åpner også muligheter for å gjøre ting på tvers av repoene
 - Brukes (vanligvis) bare på utviklermaskin 
@@ -431,13 +435,16 @@ Repoet inneholder:
 meta-repo/
 ├── .meta               # Definerer alle sub-repo
 ├── .gitignore          # Utelukker sub-repo-mapper
-└── +++                 # Annet som er nyttig
+├── docs/               # Felles dokumentasjon
+├── Makefile            # Kommandoer for alle repo
+└── +++                 # Andre scripts og verktøy
 ```
 
 Note:
 - `.meta`-filen er hjertet i et meta-repo
 - Den definerer alle repoene som skal håndteres
 - `.gitignore` er viktig så du ikke får med alle repoene i meta-repo
+- `docs/` for felles dokumentasjon som gjelder på tvers av repo - arkitekturbeslutninger, API-kontrakter, onboarding-guides
 - I tillegg kan du ha andre ting som er nyttige på tvers av repoene
 
 --
@@ -466,6 +473,7 @@ Note:
 - Vis .meta-filen og antall repositories
 - Forklar hvordan teamet bruker dette
 - Påpek .gitignore struktur
+- Vis docs/ mappen - her har teamet felles dokumentasjon som gjelder på tvers av alle repoene
 - Dette er et ekte team med 15+ repositories
 
 --
@@ -1096,6 +1104,16 @@ Note:
 - Oppsett av regler og sjekker for brancher/PR'er på GitHub
 - Sette opp formatteringsregler (.editorconfig)
 - Minor/patch/major-oppgraderinger av avhengigheter
+
+--
+
+## Flere cross-repo muligheter
+
+**Dokumentasjon & Kunnskap:**
+- Felles arkitekturdokumentasjon
+- Cross-repo API-kontrakter
+- Team onboarding-guides
+- Decision records (ADRs)
 
 Note:
 Dette er bare noen eksempler på hva som er mulig med meta-repo koordinering.
